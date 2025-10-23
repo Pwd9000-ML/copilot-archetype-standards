@@ -82,7 +82,7 @@ When you request a security review, I will actively:
 - Unnecessary features or services enabled
 - Missing security headers
 
-### 6. Vulnerable and Outdated Components
+### 6. Dependency and Component Security
 
 **I will analyze:**
 - Package manager files (requirements.txt, pom.xml, package.json)
