@@ -8,6 +8,7 @@ This file contains high-level coding standards and practices that apply across a
 - **Testing**: Always add or adjust unit tests when modifying code functionality.
 - **Documentation**: Update relevant documentation when changing behavior or adding features.
 - **Language-Specific Rules**: Follow language-specific guidelines in `.github/instructions/` for Python, Java, and Terraform.
+- **Links**: When following links to style guides or documentation, ensure they point to the correct relative paths within this repository using full URL paths, not relative links. This project full path is: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/
 
 ## Code Quality
 
