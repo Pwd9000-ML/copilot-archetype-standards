@@ -326,6 +326,25 @@ description: One-line description of the toolset
 
 ## Testing Your Changes
 
+### Automated Validation (Recommended)
+
+Run the validation script to automatically check all requirements:
+
+```bash
+.github/scripts/validate-files.sh
+```
+
+This script checks:
+- ✅ YAML front matter validity and required fields
+- ✅ URL consistency (tree/master)
+- ✅ File naming conventions
+- ✅ Code fence matching
+- ✅ Unfilled template placeholders
+
+### Manual Testing
+
+If you prefer manual testing or want to verify specific aspects:
+
 ### 1. Validate Front Matter
 
 Ensure all YAML front matter is properly formatted:
