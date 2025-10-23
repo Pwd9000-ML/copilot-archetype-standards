@@ -90,7 +90,7 @@ Before you consider a task complete, ensure:
 These resources provide additional, technology-specific guidance. Always use the full GitHub URLs when linking in docs or instruction files.
 
 - Organization Copilot Guidelines:
-	https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/copilot-instructions.md
+	https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/global.instructions.md
 
 - Python Instructions:
 	https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md
