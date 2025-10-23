@@ -225,8 +225,15 @@ public User findByEmail(String email) {
 ### Secrets Management
 ```java
 public class Config {
-    private final String apiKey = System.getenv("API_KEY");  // Never hardcode secrets
+    private final String apiKey;
     
+    public Config() {
+        String key = System.getenv("API_KEY");
+        if (key == null || key.isBlank()) {
+            throw new IllegalStateException("API_KEY environment variable must be set and non-blank");
+        }
+        this.apiKey = key;
+    }
     public void processPassword(char[] password) {
         try {
             // Process
