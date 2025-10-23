@@ -69,11 +69,16 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 - **Format**: Front matter with `applyTo` and `description` fields
 
 #### `.github/prompts/*.prompt.md`
-- **Purpose**: Reusable prompt templates for common tasks
+- **Purpose**: Reusable prompt templates for common tasks with active agent capabilities
 - **Scope**: Workspace or user-scoped
 - **Support**: GitHub Copilot Chat
-- **Format**: Front matter with `mode` and `description` fields
-- **Usage**: Can reference other workspace files via relative paths
+- **Format**: Front matter with `mode: 'agent'`, `description`, and `tools` fields
+- **Tools**: Uses `search`, `usages`, and `githubRepo` for active code analysis
+- **Usage**: Can actively search codebase, trace dependencies, and analyze repository context
+- **Features**: 
+  - **Migration Planning**: Analyzes codebase structure, identifies dependencies, and generates phased migration plans
+  - **Security Review**: Scans for OWASP Top 10 vulnerabilities with language-specific checks
+  - **Test Generation**: Creates comprehensive test suites by analyzing code paths and existing test patterns
 
 #### `.github/chatmodes/*.chatmode.md`
 - **Purpose**: Custom chat modes for specialized workflows
@@ -240,25 +245,48 @@ terraform-project/
 - **prompts/*.prompt.md**: Available as reusable prompts in Copilot Chat
 - **chatmodes/*.chatmode.md**: Activate specialized modes for focused development tasks
 
-### Example Copilot Workflows
+### Example Copilot Workflows with Agent Mode
 
-**Security Review:**
-1. Select code to review
+Our prompt files use **agent mode** with active tool capabilities for enhanced code analysis:
+
+**Security Review (Agent Mode):**
+1. Select code to review or specify a directory
 2. Open Copilot Chat
 3. Reference: `/prompt review-security`
-4. Copilot performs security analysis using OWASP Top 10
+4. Agent actively:
+   - Searches codebase for security patterns
+   - Traces data flows using `usages` analysis
+   - Scans dependencies for vulnerabilities
+   - Provides specific findings with file locations
+5. Example: `"Review the authentication module in /src/auth for security vulnerabilities"`
 
-**Generate Tests:**
+**Generate Tests (Agent Mode):**
 1. Select function/class to test
 2. Open Copilot Chat
 3. Reference: `/prompt generate-tests`
-4. Copilot generates comprehensive test suite
+4. Agent actively:
+   - Analyzes code structure and all code paths
+   - Finds existing test patterns in your repository
+   - Identifies dependencies to mock
+   - Generates tests matching your project style
+5. Example: `"Generate comprehensive tests for UserService with >90% coverage"`
 
-**Migration Planning:**
+**Migration Planning (Agent Mode):**
 1. Open Copilot Chat
 2. Reference: `/prompt plan-migration`
 3. Describe migration scenario
-4. Copilot provides detailed migration plan
+4. Agent actively:
+   - Scans repository for migration patterns
+   - Identifies all dependencies and usage points
+   - Analyzes repository structure and history
+   - Creates data-driven migration timeline
+5. Example: `"Plan migration from Python 3.8 to 3.12 for /src/core directory"`
+
+**Benefits of Agent Mode:**
+- **Active Analysis**: Prompts don't just provide templates - they actively analyze your code
+- **Context-Aware**: Uses repository structure and existing patterns
+- **Data-Driven**: Provides specific file locations, usage counts, and metrics
+- **Customized Output**: Generates plans specific to your codebase, not generic advice
 
 ## 🧪 Testing the Configuration
 
