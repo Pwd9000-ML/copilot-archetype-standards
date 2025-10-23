@@ -142,13 +142,13 @@ Create lightweight instruction files in your project that reference this central
 
 This project follows the organization-wide standards defined in the central repository:
 
-- [Organization Copilot Guidelines](https://github.com/Pwd9000-ML/copilot-archetype-standards/blob/main/.github/copilot-instructions.md)
+- [Organization Copilot Guidelines](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/copilot-instructions.md)
 
 ## Language-Specific Instructions
 
-- [Python Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/blob/main/.github/instructions/python.instructions.md)
-- [Java Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/blob/main/.github/instructions/java.instructions.md)
-- [Terraform Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/blob/main/.github/instructions/terraform.instructions.md)
+- [Python Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md)
+- [Java Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md)
+- [Terraform Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md)
 
 ## Project-Specific Guidelines
 
@@ -387,9 +387,9 @@ cat > .github/copilot-instructions.md << 'EOF'
 # Python Project Standards
 
 Follow organization standards: 
-https://github.com/Pwd9000-ML/copilot-archetype-standards/blob/main/.github/instructions/python.instructions.md
+https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md
 
-See: https://github.com/Pwd9000-ML/copilot-archetype-standards/blob/main/docs/python-style.md
+See: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/python-style.md
 EOF
 
 # 3. Create test file
