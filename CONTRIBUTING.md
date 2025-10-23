@@ -469,7 +469,7 @@ Closes #123
 
 - **Questions**: Open a GitHub Discussion
 - **Issues**: Create a GitHub Issue
-- **General Help**: Contact the maintainers
+- **General Help**: Contact the author and maintainer @Pwd9000-ML
 
 ## Code of Conduct
 
