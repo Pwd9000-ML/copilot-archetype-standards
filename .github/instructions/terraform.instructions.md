@@ -1,238 +1,350 @@
 ---
 applyTo: "**/*.tf"
-description: Terraform infrastructure as code standards
+description: Terraform 1.13 with Azure-focused infrastructure as code standards
 ---
 
-# Terraform Development Standards
+# Terraform 1.13 Development Standards with Azure Focus
 
 ## Version Requirements
-- Use Terraform >= 1.6.0
-- Pin provider versions in `required_providers` block
-- Use semantic versioning constraints (`~>` for minor version updates)
+- **Required**: Terraform >= 1.13 (optional attributes, enhanced for expressions)
+- **Azure Providers**: AzureRM >= 4.0, AzAPI >= 2.0
+- Pin minor versions using `~>` for stability
 
 ```hcl
 terraform {
-  required_version = ">= 1.6.0"
+  required_version = ">= 1.13"
   
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.80"
+      version = "~> 4.0"
     }
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
+    azapi = {
+      source  = "azure/azapi"
+      version = "~> 2.0"
     }
   }
 }
+
+provider "azurerm" {
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = true
+    }
+    key_vault {
+      purge_soft_delete_on_destroy = false
+    }
+  }
+  use_msi = var.use_managed_identity
+}
 ```
 
-## Code Formatting & Linting
+## Modern Terraform 1.13 Features
 
-- **Formatter**: Run `terraform fmt -recursive` before committing
-- **Linter**: Use `tflint` with appropriate rulesets
-- **Security**: Use `tfsec` or `checkov` for security scanning
-- **Validation**: Run `terraform validate` in CI/CD
-
-### TFLint Configuration
+### Optional Object Attributes
 ```hcl
-# .tflint.hcl
-plugin "terraform" {
-  enabled = true
-  preset  = "recommended"
-}
-
-plugin "azurerm" {
-  enabled = true
-  version = "0.25.1"
-  source  = "github.com/terraform-linters/tflint-ruleset-azurerm"
-}
-
-rule "terraform_naming_convention" {
-  enabled = true
+variable "network_config" {
+  type = object({
+    vnet_name     = string
+    address_space = list(string)
+    dns_servers   = optional(list(string), [])
+    subnets = list(object({
+      name             = string
+      address_prefixes = list(string)
+      service_endpoints = optional(list(string), [])
+    }))
+    enable_ddos_protection = optional(bool, false)
+  })
 }
 ```
 
-## File Structure
-
-Organize Terraform code with a clear structure:
-
-```
-├── main.tf              # Primary resource definitions
-├── variables.tf         # Input variable declarations
-├── outputs.tf           # Output value declarations
-├── versions.tf          # Terraform and provider version constraints
-├── locals.tf            # Local value definitions (optional)
-├── data.tf              # Data source definitions (optional)
-├── terraform.tfvars     # Variable values (gitignored for secrets)
-├── modules/             # Local modules
-│   └── <module-name>/
-│       ├── main.tf
-│       ├── variables.tf
-│       └── outputs.tf
-└── environments/        # Environment-specific configs
-    ├── dev/
-    ├── staging/
-    └── prod/
-```
-
-## Naming Conventions
-
-- Use `snake_case` for all resource names, variables, and outputs
-- Use descriptive, meaningful names that indicate purpose
-- Prefix resources with type or purpose (e.g., `rg_` for resource groups)
-- Use consistent naming across environments
-
-### Examples
+### Enhanced For Expressions
 ```hcl
-# Resource names
-resource "azurerm_resource_group" "rg_main" {
-  name     = "rg-${var.project}-${var.environment}-${var.location}"
+locals {
+  # Flatten nested structures
+  subnet_nsg_associations = flatten([
+    for vnet_key, vnet in var.virtual_networks : [
+      for subnet in vnet.subnets : {
+        vnet_key    = vnet_key
+        subnet_name = subnet.name
+        nsg_id      = subnet.network_security_group_id
+      } if subnet.network_security_group_id != null
+    ]
+  ])
+}
+```
+
+## Azure Best Practices
+
+### Resource Naming
+```hcl
+locals {
+  naming_convention = {
+    resource_group  = "rg-${var.workload}-${var.environment}-${var.location_short}"
+    storage_account = lower(replace("st${var.workload}${var.environment}", "-", ""))
+    key_vault       = "kv-${var.workload}-${var.environment}"
+    vnet            = "vnet-${var.workload}-${var.environment}"
+  }
+  
+  common_tags = {
+    Environment = var.environment
+    Workload    = var.workload
+    ManagedBy   = "Terraform"
+  }
+}
+
+resource "azurerm_resource_group" "main" {
+  name     = local.naming_convention.resource_group
   location = var.location
-}
-
-# Variable names
-variable "vm_size" {
-  description = "Size of the virtual machine"
-  type        = string
-  default     = "Standard_B2s"
-}
-
-# Output names
-output "resource_group_name" {
-  description = "Name of the created resource group"
-  value       = azurerm_resource_group.rg_main.name
+  tags     = local.common_tags
 }
 ```
 
-## Variables
-
-- Always include descriptions for variables
-- Specify types explicitly
-- Use validation blocks for input constraints
-- Set sensitive = true for sensitive values
-- Provide meaningful defaults when appropriate
-
+### Using AzAPI for Preview Features
 ```hcl
-variable "environment" {
-  description = "Environment name (dev, staging, prod)"
-  type        = string
+# Use AzAPI for features not yet in AzureRM
+resource "azapi_resource" "container_app" {
+  type      = "Microsoft.App/managedEnvironments@2024-03-01"
+  name      = "cae-${var.workload}-${var.environment}"
+  parent_id = azurerm_resource_group.main.id
+  location  = azurerm_resource_group.main.location
   
-  validation {
-    condition     = contains(["dev", "staging", "prod"], var.environment)
-    error_message = "Environment must be dev, staging, or prod."
-  }
-}
-
-variable "admin_password" {
-  description = "Administrator password for the VM"
-  type        = string
-  sensitive   = true
-  
-  validation {
-    condition     = length(var.admin_password) >= 12
-    error_message = "Password must be at least 12 characters long."
-  }
+  body = jsonencode({
+    properties = {
+      appLogsConfiguration = {
+        destination = "azure-monitor"
+      }
+    }
+  })
+  tags = local.common_tags
 }
 ```
 
-## Outputs
-
-- Document all outputs with descriptions
-- Mark sensitive outputs appropriately
-- Group related outputs logically
-- Use outputs to expose module information
-
+### Key Vault Integration
 ```hcl
-output "resource_group_id" {
-  description = "The ID of the resource group"
-  value       = azurerm_resource_group.rg_main.id
-}
-
-output "admin_credentials" {
-  description = "Administrator credentials (sensitive)"
-  value = {
-    username = azurerm_linux_virtual_machine.vm.admin_username
-    password = azurerm_linux_virtual_machine.vm.admin_password
-  }
-  sensitive = true
-}
-```
-
-## Modules
-
-- Create reusable modules for common patterns
-- Document module usage in README.md
-- Version modules using Git tags
-- Test modules independently
-- Keep modules focused and single-purpose
-
-### Module Structure
-```hcl
-# modules/virtual_network/main.tf
-resource "azurerm_virtual_network" "vnet" {
-  name                = var.vnet_name
-  address_space       = var.address_space
-  location            = var.location
-  resource_group_name = var.resource_group_name
+resource "azurerm_key_vault" "main" {
+  name                = local.naming_convention.key_vault
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  sku_name            = "standard"
+  tenant_id           = data.azurerm_client_config.current.tenant_id
   
-  tags = var.tags
+  enable_rbac_authorization  = true
+  purge_protection_enabled   = var.environment == "prod"
+  soft_delete_retention_days = 90
+  
+  network_acls {
+    default_action = "Deny"
+    bypass         = "AzureServices"
+  }
+  tags = local.common_tags
 }
 
-# modules/virtual_network/variables.tf
-variable "vnet_name" {
-  description = "Name of the virtual network"
-  type        = string
-}
-
-# modules/virtual_network/outputs.tf
-output "vnet_id" {
-  description = "ID of the virtual network"
-  value       = azurerm_virtual_network.vnet.id
+# Reference secrets
+data "azurerm_key_vault_secret" "db_connection" {
+  name         = "db-connection-string"
+  key_vault_id = azurerm_key_vault.main.id
 }
 ```
 
-## State Management
+### Private Endpoints
+```hcl
+module "private_endpoint" {
+  source   = "./modules/private_endpoint"
+  for_each = var.private_endpoint_configs
+  
+  name                = "pe-${each.key}-${var.environment}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  subnet_id           = azurerm_subnet.private.id
+  
+  private_connection_resource_id = each.value.resource_id
+  subresource_names              = each.value.subresource_names
+}
 
-- Use remote state backends (Azure Storage, S3, Terraform Cloud)
-- Enable state locking to prevent concurrent modifications
-- Never commit state files to version control
-- Use workspaces or separate state files per environment
+resource "azurerm_private_dns_zone" "main" {
+  for_each            = toset(var.private_dns_zones)
+  name                = each.value
+  resource_group_name = azurerm_resource_group.main.name
+}
+```
+
+## Security & Compliance
+
+### Managed Identity
+```hcl
+resource "azurerm_user_assigned_identity" "main" {
+  name                = "id-${var.workload}-${var.environment}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+}
+
+# RBAC with least privilege
+resource "azurerm_role_assignment" "kv_reader" {
+  scope                = azurerm_key_vault.main.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = azurerm_user_assigned_identity.main.principal_id
+}
+```
+
+### Azure Policy
+```hcl
+resource "azurerm_resource_group_policy_assignment" "require_tags" {
+  name                 = "require-tags"
+  resource_group_id    = azurerm_resource_group.main.id
+  policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/96670d01-0a4d-4649-9c89-2d3abc0a5025"
+  
+  parameters = jsonencode({
+    tagName = { value = "Environment" }
+  })
+}
+```
+
+## State Management - Azure Backend
 
 ```hcl
 terraform {
   backend "azurerm" {
-    resource_group_name  = "rg-terraform-state"
-    storage_account_name = "sttfstate"
+    resource_group_name  = "rg-terraform-state-prod"
+    storage_account_name = "stterraformstate"
     container_name       = "tfstate"
-    key                  = "prod.terraform.tfstate"
+    key                  = "${var.environment}/${var.workload}.tfstate"
+    use_azuread_auth     = true
+    use_msi              = true
+  }
+}
+
+# State storage with security
+resource "azurerm_storage_account" "tfstate" {
+  name                     = "stterraformstate"
+  resource_group_name      = azurerm_resource_group.state.name
+  location                 = azurerm_resource_group.state.location
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
+  
+  min_tls_version           = "TLS1_2"
+  enable_https_traffic_only = true
+  
+  blob_properties {
+    versioning_enabled = true
+    delete_retention_policy {
+      days = 30
+    }
   }
 }
 ```
 
-## Security Best Practices
+## Module Development
 
-- Never hardcode secrets or credentials
-- Use Azure Key Vault, AWS Secrets Manager, or HashiCorp Vault
-- Enable encryption at rest for state files
-- Use managed identities where possible
-- Implement least privilege access controls
-- Tag resources for cost tracking and compliance
+```hcl
+# modules/app_service/variables.tf
+variable "app_config" {
+  type = object({
+    name     = string
+    sku_size = optional(string, "B1")
+    
+    site_config = optional(object({
+      always_on           = optional(bool, true)
+      minimum_tls_version = optional(string, "1.2")
+    }))
+  })
+}
 
-## Testing
+# modules/app_service/main.tf
+resource "azurerm_service_plan" "main" {
+  name                = "${var.app_config.name}-plan"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  os_type             = "Linux"
+  sku_name            = var.app_config.sku_size
+}
 
-- Use `terraform plan` to preview changes before applying
-- Implement automated testing with Terratest or similar
-- Test in lower environments before production
-- Use `-target` flag sparingly (only for debugging)
+resource "azurerm_linux_web_app" "main" {
+  name                = var.app_config.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  service_plan_id     = azurerm_service_plan.main.id
+  https_only          = true
+  
+  site_config {
+    always_on           = try(var.app_config.site_config.always_on, true)
+    minimum_tls_version = try(var.app_config.site_config.minimum_tls_version, "1.2")
+  }
+}
+```
 
-## Documentation
+## Testing & Validation
 
-- Maintain README.md with usage examples
-- Document architecture decisions
-- Keep diagrams up-to-date
-- Use terraform-docs to auto-generate documentation
+```hcl
+# tests/app_service.tftest.hcl
+run "valid_config" {
+  command = plan
+  
+  variables {
+    app_config = {
+      name = "app-test-001"
+      site_config = { always_on = true }
+    }
+  }
+  
+  assert {
+    condition     = azurerm_linux_web_app.main.https_only == true
+    error_message = "HTTPS must be enforced"
+  }
+}
 
-## Additional Resources
+# Validation rules
+variable "location" {
+  type = string
+  
+  validation {
+    condition = contains([
+      "eastus", "westus", "westeurope"
+    ], var.location)
+    error_message = "Invalid Azure region"
+  }
+}
+```
 
-See [Terraform Conventions](../docs/terraform-conventions.md) for extended guidelines.
+## Anti-Patterns
+
+### ❌ Avoid
+```hcl
+# Hardcoded values
+resource "azurerm_resource_group" "main" {
+  name = "my-resource-group"  # Bad
+}
+
+# count when for_each is better
+resource "azurerm_storage_account" "main" {
+  count = length(var.accounts)  # Use for_each
+}
+```
+
+### ✅ Prefer
+```hcl
+# Use variables and locals
+resource "azurerm_resource_group" "main" {
+  name = local.naming_convention.resource_group
+}
+
+# for_each for multiple resources
+resource "azurerm_storage_account" "main" {
+  for_each = var.accounts
+  name     = "st${each.key}"
+}
+
+# Dynamic blocks for repetition
+dynamic "ip_restriction" {
+  for_each = var.restrictions
+  content {
+    name = ip_restriction.value.name
+  }
+}
+```
+
+## Resources
+
+- [Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
+- [Azure API Provider](https://registry.terraform.io/providers/Azure/azapi/latest)
+- [Terraform Best Practices](https://www.terraform-best-practices.com/)
