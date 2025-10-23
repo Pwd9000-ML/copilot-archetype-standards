@@ -480,7 +480,6 @@ To add a new language archetype:
 - [Copilot Chat Documentation](https://docs.github.com/en/copilot/github-copilot-chat)
 - [Custom Instructions](https://code.visualstudio.com/docs/copilot/copilot-customization)
 
-
 ### Security Resources
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [CWE Top 25](https://cwe.mitre.org/top25/)
