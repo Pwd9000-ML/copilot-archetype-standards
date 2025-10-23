@@ -1,6 +1,8 @@
 # GitHub Copilot Archetype Standards
 
-A centralized repository containing development standards, coding guidelines, and GitHub Copilot configuration files for Python, Java, and Terraform projects.
+A centralized repository containing development standards, coding guidelines, and GitHub Copilot configuration files for developer project archetypes.
+The primary IDE target is Visual Studio Code (VS Code) with GitHub Copilot and GitHub Copilot Chat extensions installed.
+More IDEs will be tested over time.
 
 ## 📋 Table of Contents
 
@@ -20,15 +22,15 @@ This repository serves as a central source of truth for:
 - **GitHub Copilot instruction files** that guide AI-assisted development
 - **Reusable prompt templates** for common development tasks
 - **Custom chat modes** for specialized development workflows
-- **Language-specific style guides** for Python, Java, and Terraform
+- **Language-specific style guides** for development archetypes such as Python, Java, and Terraform
 
 ### Why This Repository?
 
-GitHub Copilot custom instruction files, prompt files, and chat modes cannot be centrally managed, even in GitHub Enterprise Cloud (GHEC). This repository provides a workaround by:
+GitHub Copilot custom instruction files, prompt files, and chat modes cannot be centrally managed, even in GitHub Enterprise Cloud (GHEC), at least at the time of writing **Oct 2025**. This repository provides a workaround by:
 
-1. Storing all standards and instructions in a central location
-2. Allowing other repositories to reference these standards via Markdown links
-3. Providing a consistent development experience across projects
+1. Storing all standards and instructions in a central location/repository
+2. Allowing other repositories to reference these standards via Markdown links in their own instruction files
+3. Providing a consistent development experience across projects and repositories, so Copilot behaves uniformly across IDEs
 4. Enabling easy updates that propagate to all referencing repositories
 
 ## 📁 Repository Structure
@@ -58,7 +60,7 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 ### File Types and Purposes
 
 #### `.github/copilot-instructions.md`
-- **Purpose**: Repository-wide high-level coding rules
+- **Purpose**: Repository-wide high-level coding rules and standards
 - **Scope**: Automatically applied to entire repository
 - **Support**: VS Code, GitHub Copilot
 

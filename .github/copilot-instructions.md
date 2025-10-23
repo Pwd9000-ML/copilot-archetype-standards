@@ -6,15 +6,20 @@ This file contains high-level coding standards and practices that apply across a
 
 - **Minimal Changes**: Prefer smallest-change diffs. Only modify what's necessary to accomplish the task.
 - **Testing**: Always add or adjust unit tests when modifying code functionality.
-- **Documentation**: Update relevant documentation when changing behavior or adding features.
-- **Language-Specific Rules**: Follow language-specific guidelines in `.github/instructions/` for Python, Java, and Terraform.
+- **Documentation**: Update relevant documentation when changing behaviour or adding features to ensure clarity in the codebase README.md
+- **Language-Specific Rules**: Follow language-specific guidelines in `.github/instructions/` for development archetypes.
 
 ## Code Quality
 
-- Write clean, maintainable, and well-documented code
+- Write clean, maintainable, and well-documented code and comments
+- Adhere to established coding standards and style guides for the specific language/framework
 - Use meaningful variable and function names
 - Follow the DRY (Don't Repeat Yourself) principle
 - Keep functions and methods focused on a single responsibility
+- When making changes, consider the token limits of AI tools and use the 75 words per 100 tokens guideline, especially for large files.
+- Avoid deep nesting of code blocks for better readability
+- Use consistent indentation and formatting
+- Limit line length to 80-120 characters for better readability
 
 ## Security
 
