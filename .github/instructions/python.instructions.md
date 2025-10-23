@@ -37,6 +37,8 @@ strict = true
 disallow_untyped_defs = true
 
 [tool.pytest.ini_options]
+# By default, pytest discovers tests in files matching 'test_*.py' or '*_test.py',
+# in classes named 'Test*', and functions named 'test_*'.
 testpaths = ["tests"]
 addopts = ["--strict-markers", "--cov=src", "--cov-fail-under=80"]
 ```
