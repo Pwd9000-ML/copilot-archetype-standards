@@ -1,11 +1,40 @@
 ---
-mode: 'ask'
-description: Generate comprehensive unit tests for selected code
+mode: 'agent'
+description: Generate comprehensive unit tests for selected code using agent mode
 ---
 
-# Generate Tests Prompt
+# Generate Tests Prompt for Agent Mode
 
 Generate comprehensive unit tests for the selected code following best practices for the specific language.
+
+## Agent Workflow for Test Generation
+
+### Phase 1: Understand the Code
+- **Read the code**: Use view tool to read the target code and related files
+- **Identify dependencies**: Find what the code depends on (imports, external services)
+- **Understand behavior**: Determine what the code does and how it should behave
+- **Find existing tests**: Check if tests already exist and review their patterns
+- **Note edge cases**: Identify boundary conditions and error scenarios
+
+### Phase 2: Plan Test Coverage
+- **Happy path**: Normal operation with valid inputs
+- **Edge cases**: Boundary conditions, empty inputs, null/None values
+- **Error cases**: Invalid inputs, exceptions, error handling
+- **Integration points**: External dependencies, database calls, API calls
+- **Business logic**: Core functionality and business rules
+
+### Phase 3: Generate Tests
+- Follow language-specific testing patterns
+- Use appropriate testing framework (pytest, JUnit 5, etc.)
+- Add descriptive test names and docstrings
+- Group related tests in test classes/files
+- Use fixtures/setup for test data
+
+### Phase 4: Validate Tests
+- Run tests to ensure they pass
+- Check test coverage with coverage tools
+- Verify tests actually test the intended behavior
+- Ensure tests are independent and can run in any order
 
 ## Test Generation Guidelines
 
@@ -193,3 +222,94 @@ Generate tests that are:
 ✅ Reliable and deterministic
 ✅ Independent from each other
 ✅ Focused on behavior, not implementation
+
+## Agent-Specific Test Generation Commands
+
+### Python Test Generation
+```bash
+# Run tests after generation
+pytest tests/test_new_file.py -v
+
+# Check coverage
+pytest --cov=src/module tests/test_new_file.py --cov-report=term
+
+# Lint test file
+ruff check tests/test_new_file.py
+```
+
+### Java Test Generation
+```bash
+# Run specific test class
+./gradlew test --tests NewClassTest
+
+# Check coverage
+./gradlew test jacocoTestReport
+
+# Format test file
+./gradlew spotlessApply
+```
+
+### Terraform Test Generation
+```bash
+# Validate terraform files
+terraform validate
+
+# Run terratest (if applicable)
+cd test && go test -v -timeout 30m
+```
+
+## Progress Reporting for Test Generation
+
+### Initial Report
+```markdown
+## Generate Tests: [Module/Class Name]
+
+### Plan
+- [x] Analyzed code to be tested
+- [x] Identified test scenarios
+- [ ] Generated happy path tests
+- [ ] Generated edge case tests
+- [ ] Generated error handling tests
+- [ ] Validated all tests pass
+
+### Test Scenarios Identified
+1. Happy path: [scenario]
+2. Edge case: [scenario]
+3. Error case: [scenario]
+4. [Additional scenarios]
+
+### Next Steps
+Generating happy path tests first
+```
+
+### Completion Report
+```markdown
+## Generate Tests: [Module/Class Name]
+
+### Completed
+- [x] Analyzed code to be tested
+- [x] Identified test scenarios
+- [x] Generated happy path tests
+- [x] Generated edge case tests
+- [x] Generated error handling tests
+- [x] Validated all tests pass
+
+### Test Summary
+- Total tests created: XX
+- Test coverage: XX%
+- All tests passing: ✅
+
+### Tests Generated
+- `test_[function]_happy_path`: Tests normal operation
+- `test_[function]_edge_case_[scenario]`: Tests boundary conditions
+- `test_[function]_error_[scenario]`: Tests error handling
+- [Additional tests]
+```
+
+## Tips for Effective Test Generation with Agent
+
+1. **Read existing tests first**: Match the style and patterns used in the codebase
+2. **Use parallel reads**: Read multiple related files simultaneously
+3. **Test incrementally**: Generate a few tests, run them, then generate more
+4. **Mock external dependencies**: Use appropriate mocking frameworks
+5. **Report progress frequently**: After generating and validating each batch of tests

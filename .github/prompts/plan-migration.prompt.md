@@ -1,11 +1,43 @@
 ---
-mode: 'ask'
-description: Plan migration strategy for code or infrastructure changes
+mode: 'agent'
+description: Plan and execute migration strategy for code or infrastructure changes
 ---
 
-# Migration Planning Prompt
+# Migration Planning Prompt for Agent Mode
 
-Create a detailed migration plan for moving code, infrastructure, or systems from one state to another.
+Create a detailed migration plan for moving code, infrastructure, or systems from one state to another. When using agent mode, you can both plan AND execute migration steps incrementally.
+
+## Agent Migration Workflow
+
+### Phase 0: Pre-Migration Analysis (Agent-Specific)
+Before planning, use agent capabilities to gather comprehensive information:
+
+#### Automated Discovery
+```bash
+# Analyze codebase structure
+find . -name "*.py" -o -name "*.java" -o -name "*.tf" | wc -l
+find . -type f -name "*.py" -exec wc -l {} + | sort -rn | head -20
+
+# Check dependencies
+pip list                    # Python
+./gradlew dependencies      # Java
+terraform providers schema  # Terraform
+
+# Analyze git history
+git --no-pager log --oneline --since="6 months ago" --format="%h %an %s" | head -50
+git --no-pager log --stat --since="3 months ago" | grep -E "files? changed"
+
+# Find potential issues
+grep -r "TODO\|FIXME\|HACK" src/
+grep -r "deprecated" src/
+```
+
+#### Parallel Code Analysis
+Use view tool to read multiple files simultaneously:
+- Read current implementation files
+- Read target/new implementation files
+- Read configuration files
+- Read documentation files
 
 ## Migration Planning Framework
 
@@ -246,3 +278,184 @@ Use this checklist to track migration progress:
 ❌ Don't rush the process
 ❌ Don't forget about rollback
 ❌ Don't neglect documentation
+
+## Agent-Specific Migration Execution
+
+### Incremental Migration Pattern
+When executing migration with agent mode:
+
+#### Step 1: Create Parallel Implementation
+```markdown
+1. Keep old code working
+2. Add new code alongside
+3. Add feature flag/switch
+4. Test both paths
+5. Report progress
+```
+
+#### Step 2: Gradual Cutover
+```markdown
+1. Update one caller at a time
+2. Test after each change
+3. Run full test suite
+4. Report progress
+5. Continue to next caller
+```
+
+#### Step 3: Deprecation
+```markdown
+1. Mark old code as deprecated
+2. Add warnings
+3. Document migration path
+4. Update all internal usages
+5. Report progress
+```
+
+#### Step 4: Removal
+```markdown
+1. Verify no usages remain
+2. Remove old code
+3. Clean up tests
+4. Update documentation
+5. Report final progress
+```
+
+### Migration Execution Commands
+
+#### Python Migration
+```bash
+# Find all usages of old code
+grep -r "old_function_name" src/
+grep -r "OldClassName" src/
+
+# Run tests for each module being migrated
+pytest tests/test_module.py -v
+
+# Check for deprecation warnings
+pytest tests/ -W default::DeprecationWarning
+```
+
+#### Java Migration
+```bash
+# Find usages with grep
+grep -r "OldClassName" src/
+
+# Run tests for specific package
+./gradlew test --tests com.example.package.*
+
+# Check for deprecation warnings during build
+./gradlew build -Xlint:deprecation
+```
+
+#### Terraform Migration
+```bash
+# Import existing resources
+terraform import azurerm_resource.name /subscriptions/.../resource
+
+# Plan with target for specific resources
+terraform plan -target=azurerm_resource.name
+
+# Apply incrementally
+terraform apply -target=azurerm_resource.name
+```
+
+## Migration Progress Tracking
+
+### Initial Migration Plan
+```markdown
+## Migration: [From X to Y]
+
+### Assessment Complete
+- [x] Current state analyzed
+- [x] Target state defined
+- [x] Gap analysis completed
+- [x] Risk assessment done
+- [x] Migration strategy selected: [Strategy]
+
+### Migration Phases
+- [ ] Phase 1: Preparation (estimated: X days)
+  - [ ] Setup new infrastructure/code
+  - [ ] Add feature flags
+  - [ ] Create parallel implementation
+- [ ] Phase 2: Gradual Migration (estimated: X days)
+  - [ ] Migrate component A
+  - [ ] Migrate component B
+  - [ ] Migrate component C
+- [ ] Phase 3: Validation (estimated: X days)
+  - [ ] Verify all functionality
+  - [ ] Performance testing
+  - [ ] Security review
+- [ ] Phase 4: Cleanup (estimated: X days)
+  - [ ] Remove old code
+  - [ ] Update documentation
+  - [ ] Decommission old resources
+
+### Next Steps
+Starting Phase 1: Setting up new infrastructure
+```
+
+### Migration Progress Update
+```markdown
+## Migration: [From X to Y]
+
+### Progress Summary
+- [x] Phase 1: Preparation ✅
+  - [x] Setup new infrastructure/code
+  - [x] Add feature flags
+  - [x] Create parallel implementation
+- [x] Phase 2: Gradual Migration (In Progress)
+  - [x] Migrate component A ✅
+  - [x] Migrate component B ✅
+  - [ ] Migrate component C (In Progress)
+- [ ] Phase 3: Validation
+- [ ] Phase 4: Cleanup
+
+### Recent Changes
+- Migrated component A: 15 files updated, all tests passing
+- Migrated component B: 8 files updated, all tests passing
+- Component C migration: 3 of 7 files completed
+
+### Metrics
+- Files migrated: 23 of 30
+- Tests passing: 245 of 245
+- Coverage maintained: 87%
+- No performance degradation
+
+### Next Steps
+Completing component C migration (4 files remaining)
+```
+
+## Agent Tips for Migration
+
+1. **Use report_progress frequently**: After each migration step
+2. **Test incrementally**: After migrating each component
+3. **Keep rollback simple**: Don't delete old code until migration is complete
+4. **Parallel operations**: Migrate independent components in parallel
+5. **Automate validation**: Use existing test suites to verify migration
+6. **Document as you go**: Update docs with each progress report
+7. **Monitor metrics**: Track files migrated, tests passing, coverage
+
+## Migration Safety Checklist
+
+```markdown
+### Before Each Migration Step
+- [ ] All existing tests passing
+- [ ] Current code behavior documented
+- [ ] Rollback plan ready
+- [ ] Backup of current state available
+
+### After Each Migration Step
+- [ ] New code functions correctly
+- [ ] All tests still passing
+- [ ] No performance degradation
+- [ ] Documentation updated
+- [ ] Progress reported
+
+### Before Final Cutover
+- [ ] All components migrated
+- [ ] Full test suite passing
+- [ ] Performance validated
+- [ ] Security review completed
+- [ ] Rollback tested
+- [ ] Stakeholders informed
+```
