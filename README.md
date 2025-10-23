@@ -78,7 +78,9 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 - **Features**: 
   - **Migration Planning**: Analyzes codebase structure, identifies dependencies, and generates phased migration plans
   - **Security Review**: Scans for OWASP Top 10 vulnerabilities with language-specific checks
-  - **Test Generation**: Creates comprehensive test suites by analyzing code paths and existing test patterns
+  - **Test Generation (Python)**: Creates comprehensive pytest test suites with fixtures and mocks
+  - **Test Generation (Java)**: Creates JUnit 5 test suites with Mockito and AssertJ
+  - **Test Generation (Terraform)**: Creates validation scripts and Terratest integration tests
 
 #### `.github/chatmodes/*.chatmode.md`
 - **Purpose**: Custom chat modes for specialized workflows
@@ -260,16 +262,22 @@ Our prompt files use **agent mode** with active tool capabilities for enhanced c
    - Provides specific findings with file locations
 5. Example: `"Review the authentication module in /src/auth for security vulnerabilities"`
 
-**Generate Tests (Agent Mode):**
+**Generate Tests (Agent Mode - Archetype Specific):**
 1. Select function/class to test
 2. Open Copilot Chat
-3. Reference: `/prompt generate-tests`
+3. Reference the appropriate archetype:
+   - Python: `/prompt generate-tests-python`
+   - Java: `/prompt generate-tests-java`
+   - Terraform: `/prompt generate-tests-terraform`
 4. Agent actively:
    - Analyzes code structure and all code paths
    - Finds existing test patterns in your repository
    - Identifies dependencies to mock
    - Generates tests matching your project style
-5. Example: `"Generate comprehensive tests for UserService with >90% coverage"`
+5. Examples:
+   - Python: `"Generate comprehensive tests for UserService with >90% coverage"`
+   - Java: `"Generate JUnit 5 tests for OrderService class with Mockito mocks"`
+   - Terraform: `"Generate Terratest for the networking module with validation scripts"`
 
 **Migration Planning (Agent Mode):**
 1. Open Copilot Chat
