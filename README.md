@@ -36,19 +36,32 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 ```
 .
 ├── README.md
+├── CONTRIBUTING.md                          # Guide for adding new content
 ├── .github/
 │   ├── copilot-instructions.md              # Repository-wide high-level rules
 │   ├── instructions/                        # Path-scoped instruction files
-│   │   ├── python.instructions.md
-│   │   ├── java.instructions.md
-│   │   └── terraform.instructions.md
-│   ├── prompts/                             # Reusable prompt files
-│   │   ├── review-security.prompt.md
-│   │   ├── generate-tests.prompt.md
-│   │   └── plan-migration.prompt.md
-│   └── chatmodes/                           # Custom chat modes
-│       ├── reviewer.chatmode.md
-│       └── planner.chatmode.md
+│   │   ├── global.instructions.md           # Archetype-agnostic global standards
+│   │   ├── python.instructions.md           # Python 3.12+ standards
+│   │   ├── java.instructions.md             # Java 21 LTS standards
+│   │   └── terraform.instructions.md        # Terraform 1.13+ with Azure focus
+│   ├── prompts/                             # Reusable prompt files with agent mode
+│   │   ├── global.code-review.prompt.md     # Language-agnostic code review
+│   │   ├── global.update-readme.prompt.md   # README generation/updates
+│   │   ├── python.generate-tests.prompt.md  # pytest test generation
+│   │   ├── python.review-security.prompt.md # Python OWASP security review
+│   │   ├── java.generate-tests.prompt.md    # JUnit 5 test generation
+│   │   ├── java.review-security.prompt.md   # Java OWASP security review
+│   │   ├── terraform.generate-tests.prompt.md      # Terratest generation
+│   │   └── terraform.azure.review-security.prompt.md  # Azure security review
+│   ├── chatmodes/                           # Custom chat modes
+│   │   ├── python.planner.chatmode.md       # Python strategic planning
+│   │   ├── python.sec-reviewer.chatmode.md  # Python security review
+│   │   ├── java.planner.chatmode.md         # Java strategic planning
+│   │   ├── java.sec-reviewer.chatmode.md    # Java security review
+│   │   ├── terraform.planner.chatmode.md    # Infrastructure planning
+│   │   └── terraform.sec-reviewer.chatmode.md  # Terraform security review
+│   └── toolsets/                            # Tool documentation
+│       └── development.toolset.md           # search, usages, githubRepo tools
 └── docs/
     ├── python-style.md                      # Extended Python guidelines
     ├── java-style.md                        # Extended Java guidelines
@@ -94,6 +107,13 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 - **Scope**: Referenced by instruction and prompt files
 - **Support**: Any Markdown viewer
 - **Usage**: Detailed guidelines that complement instruction files
+
+#### `.github/toolsets/*.toolset.md`
+- **Purpose**: Documentation of available tools (search, usages, githubRepo)
+- **Scope**: Workspace-scoped
+- **Support**: GitHub Copilot Chat
+- **Format**: Front matter with `description` field
+- **Usage**: Reference guide for effective tool usage in prompts and chat modes
 
 ## 🚀 How to Use
 
@@ -254,16 +274,22 @@ terraform-project/
 
 Our prompt files use **agent mode** with active tool capabilities for enhanced code analysis:
 
-**Security Review (Agent Mode):**
+**Security Review (Agent Mode - Language Specific):**
 1. Select code to review or specify a directory
 2. Open Copilot Chat
-3. Reference: `/prompt review-security`
+3. Reference the appropriate archetype:
+   - Python: `/prompt python.review-security`
+   - Java: `/prompt java.review-security`
+   - Terraform: `/prompt terraform.azure.review-security`
 4. Agent actively:
    - Searches codebase for security patterns
    - Traces data flows using `usages` analysis
    - Scans dependencies for vulnerabilities
    - Provides specific findings with file locations
-5. Example: `"Review the authentication module in /src/auth for security vulnerabilities"`
+5. Examples:
+   - Python: `"Review the authentication module in /src/auth for OWASP Top 10 vulnerabilities"`
+   - Java: `"Review Spring Security configuration for security misconfigurations"`
+   - Terraform: `"Review Azure infrastructure for public exposure and weak encryption"`
 
 **Generate Tests (Agent Mode - Archetype Specific):**
 1. Select function/class to test
@@ -282,22 +308,33 @@ Our prompt files use **agent mode** with active tool capabilities for enhanced c
    - Java: `"Generate JUnit 5 tests for OrderService class with Mockito mocks"`
    - Terraform: `"Generate Terratest for the networking module with validation scripts"`
 
-**Migration Planning (Agent Mode):**
-1. Open Copilot Chat
-2. Reference: `/prompt plan-migration`
-3. Describe migration scenario
+**Code Review (Agent Mode - Universal):**
+1. Select code or files to review
+2. Open Copilot Chat
+3. Reference: `/prompt global.code-review`
 4. Agent actively:
-   - Scans repository for migration patterns
-   - Identifies all dependencies and usage points
-   - Analyzes repository structure and history
-   - Creates data-driven migration timeline
-5. Example: `"Plan migration from Python 3.8 to 3.12 for /src/core directory"`
+   - Searches for similar patterns in your codebase
+   - Traces code dependencies and usage
+   - Identifies code smells and anti-patterns
+   - Provides prioritized, actionable feedback
+5. Example: `"Review the OrderService class for code quality, performance, and maintainability"`
 
 **Benefits of Agent Mode:**
 - **Active Analysis**: Prompts don't just provide templates - they actively analyze your code
 - **Context-Aware**: Uses repository structure and existing patterns
 - **Data-Driven**: Provides specific file locations, usage counts, and metrics
 - **Customized Output**: Generates plans specific to your codebase, not generic advice
+
+### Understanding Development Tools
+
+All agent-mode prompts and chat modes use three powerful tools for code analysis:
+
+- **`search`**: Find files, symbols, patterns, and code throughout your codebase
+- **`usages`**: Trace how functions, classes, and symbols are used
+- **`githubRepo`**: Access repository metadata, structure, and history
+
+For detailed documentation on how to use these tools effectively, see:
+[Development Toolset Guide](.github/toolsets/development.toolset.md)
 
 ## 🧪 Testing the Configuration
 
@@ -383,34 +420,58 @@ code .
 
 ## 🤝 Contributing
 
-### Making Updates
+We welcome contributions! This repository provides standardized templates and guidelines for adding new content.
 
-1. **Fork this repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/update-python-standards
-   ```
-3. **Make your changes**
-4. **Test in a sample project**
-5. **Submit a pull request**
+### Quick Start
 
-### Updating Standards
+1. **Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide** for detailed instructions
+2. **Fork this repository**
+3. **Create a feature branch**: `git checkout -b feature/your-feature`
+4. **Make your changes** following the templates and conventions
+5. **Test your changes** in VS Code with GitHub Copilot
+6. **Submit a pull request** with a clear description
 
-When updating standards, consider:
+### What You Can Add
 
-- **Backward compatibility**: Will existing projects break?
-- **Documentation**: Update both instruction files and style guides
-- **Examples**: Provide code examples for new patterns
-- **Communication**: Notify teams using these standards
+- **Instruction Files**: Language or framework-specific standards (`.github/instructions/`)
+- **Prompt Files**: Reusable templates for common tasks (`.github/prompts/`)
+- **Chat Modes**: Specialized development workflows (`.github/chatmodes/`)
+- **Style Guides**: Extended guidelines and conventions (`docs/`)
+- **Toolsets**: Documentation for development tools (`.github/toolsets/`)
+
+### File Naming Conventions
+
+| Type | Format | Example |
+|------|--------|---------|
+| Instruction | `{language}.instructions.md` | `python.instructions.md` |
+| Prompt | `{scope}.{purpose}.prompt.md` | `python.generate-tests.prompt.md` |
+| Chat Mode | `{language}.{mode}.chatmode.md` | `java.planner.chatmode.md` |
+| Style Guide | `{language}-style.md` | `python-style.md` |
+| Toolset | `{category}.toolset.md` | `development.toolset.md` |
+
+### Front Matter Standards
+
+All files must include proper YAML front matter. See [CONTRIBUTING.md](CONTRIBUTING.md) for templates and examples.
+
+### Testing Your Changes
+
+Before submitting:
+- ✅ Validate YAML front matter
+- ✅ Check markdown formatting
+- ✅ Verify all links use full GitHub URLs
+- ✅ Test in VS Code with GitHub Copilot
+- ✅ Compare with existing similar files
 
 ### Adding New Archetypes
 
 To add a new language archetype:
 
-1. Create instruction file: `.github/instructions/[language].instructions.md`
-2. Create style guide: `docs/[language]-style.md`
-3. Update this README with archetype information
-4. Add examples and test cases
+1. Create instruction file: `.github/instructions/{language}.instructions.md`
+2. Create prompt files: `.github/prompts/{language}.*.prompt.md`
+3. Create chat modes: `.github/chatmodes/{language}.*.chatmode.md`
+4. Create style guide: `docs/{language}-style.md`
+5. Update this README with archetype information
+6. Add examples and usage documentation
 
 ## 📖 Additional Resources
 
