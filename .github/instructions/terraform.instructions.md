@@ -306,22 +306,8 @@ variable "location" {
 }
 ```
 
-## Anti-Patterns
+## Best Practices
 
-### ❌ Avoid
-```hcl
-# Hardcoded values
-resource "azurerm_resource_group" "main" {
-  name = "my-resource-group"  # Bad
-}
-
-# count when for_each is better
-resource "azurerm_storage_account" "main" {
-  count = length(var.accounts)  # Use for_each
-}
-```
-
-### ✅ Prefer
 ```hcl
 # Use variables and locals
 resource "azurerm_resource_group" "main" {
@@ -342,9 +328,3 @@ dynamic "ip_restriction" {
   }
 }
 ```
-
-## Resources
-
-- [Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
-- [Azure API Provider](https://registry.terraform.io/providers/Azure/azapi/latest)
-- [Terraform Best Practices](https://www.terraform-best-practices.com/)

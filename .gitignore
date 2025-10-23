@@ -1,0 +1,43 @@
+# GitHub Copilot Archetype Standards - .gitignore
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+.temp/
+tmp/
+
+# Test artifacts
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Node modules (if testing with npm tools)
+node_modules/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Development notes (personal)
+NOTES.md
+TODO.md
+.personal/
+
+# Backup files
+*.backup
+*.orig

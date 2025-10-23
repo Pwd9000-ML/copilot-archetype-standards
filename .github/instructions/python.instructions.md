@@ -344,23 +344,8 @@ class UserService:
         """
 ```
 
-## Anti-Patterns
+## Best Practices
 
-### ❌ Avoid
-```python
-def add_item(item, items=[]):  # Mutable default
-    items.append(item)
-
-try:
-    risky()
-except:  # Too broad
-    pass
-
-if value == None:  # Use 'is'
-    pass
-```
-
-### ✅ Prefer
 ```python
 def add_item(item: str, items: list[str] | None = None) -> list[str]:
     if items is None:
@@ -379,9 +364,3 @@ if value is None:
 with open("file.txt") as f:  # Use context managers
     data = f.read()
 ```
-
-## Resources
-
-- [Python 3.12 Release Notes](https://docs.python.org/3/whatsnew/3.12.html)
-- [PEP 695 - Type Parameter Syntax](https://peps.python.org/pep-0695/)
-- [Effective Python by Brett Slatkin](https://effectivepython.com/)
