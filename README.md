@@ -156,11 +156,12 @@ ln -s standards/.github/copilot-instructions.md .github/copilot-instructions.md
 
 ### Python Archetype
 
-**Key Standards:**
 - Python >=3.12 with type hints everywhere
 - Linting with `ruff`, formatting with `black` (120 columns)
 - Testing with `pytest` under `tests/` directory
-- See: [Python Instructions](.github/instructions/python.instructions.md) | [Python Style Guide](docs/python-style.md)
+**Key Standards:**
+\
+See: [Python Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md) | [Python Style Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/python-style.md)
 
 **Example Project Structure:**
 ```
@@ -179,12 +180,13 @@ python-project/
 
 ### Java Archetype
 
-**Key Standards:**
 - Java 17 LTS or later (Java 21 LTS recommended)
 - Google Java Style Guide with `google-java-format`
 - Testing with JUnit 5 and AssertJ
 - Build with Gradle or Maven
-- See: [Java Instructions](.github/instructions/java.instructions.md) | [Java Style Guide](docs/java-style.md)
+**Key Standards:**
+\
+See: [Java Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md) | [Java Style Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/java-style.md)
 
 **Example Project Structure:**
 ```
@@ -202,12 +204,13 @@ java-project/
 
 ### Terraform Archetype
 
-**Key Standards:**
 - Terraform >= 1.6.0 with pinned provider versions
 - Format with `terraform fmt`, lint with `tflint`
 - Security scanning with `tfsec` or `checkov`
 - Remote state with encryption enabled
-- See: [Terraform Instructions](.github/instructions/terraform.instructions.md) | [Terraform Conventions](docs/terraform-conventions.md)
+**Key Standards:**
+\
+See: [Terraform Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md) | [Terraform Conventions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/terraform-conventions.md)
 
 **Example Project Structure:**
 ```

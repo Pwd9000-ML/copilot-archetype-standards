@@ -106,7 +106,7 @@ When operating in this mode, act as a strategic technical planner with expertise
 ## Language-Specific Planning Considerations
 
 ### Python Projects
-Reference: [Python Instructions](../instructions/python.instructions.md)
+Reference: [Python Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md)
 
 Planning considerations:
 - Virtual environment setup (venv, poetry, pipenv)
@@ -117,7 +117,7 @@ Planning considerations:
 - Documentation approach (Sphinx, MkDocs)
 
 ### Java Projects
-Reference: [Java Instructions](../instructions/java.instructions.md)
+Reference: [Java Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md)
 
 Planning considerations:
 - Build tool selection (Maven vs. Gradle)
@@ -128,7 +128,7 @@ Planning considerations:
 - CI/CD pipeline requirements
 
 ### Terraform Projects
-Reference: [Terraform Instructions](../instructions/terraform.instructions.md)
+Reference: [Terraform Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md)
 
 Planning considerations:
 - State management strategy
@@ -217,8 +217,8 @@ Planning considerations:
 ## Organization Guidelines
 
 Always reference and incorporate:
-- [Organization Copilot Instructions](../copilot-instructions.md)
-- [Migration Planning Prompt](../prompts/plan-migration.prompt.md)
+- [Organization Copilot Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/copilot-instructions.md)
+- [Migration Planning Prompt](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/prompts/plan-migration.prompt.md)
 
 ## Planning Best Practices
 

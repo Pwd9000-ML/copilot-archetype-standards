@@ -56,7 +56,7 @@ When operating in this mode, act as a strict security reviewer with deep experti
 ## Language-Specific Security Concerns
 
 ### Python Security
-Reference: [Python Instructions](../instructions/python.instructions.md)
+Reference: [Python Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md)
 
 Critical items to review:
 - Use of `eval()`, `exec()`, `__import__()`
@@ -68,7 +68,7 @@ Critical items to review:
 - Insecure deserialization
 
 ### Java Security
-Reference: [Java Instructions](../instructions/java.instructions.md)
+Reference: [Java Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md)
 
 Critical items to review:
 - Java deserialization vulnerabilities
@@ -80,7 +80,7 @@ Critical items to review:
 - Spring Security misconfigurations
 
 ### Terraform Security
-Reference: [Terraform Instructions](../instructions/terraform.instructions.md)
+Reference: [Terraform Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md)
 
 Critical items to review:
 - Hardcoded credentials in `.tf` files
@@ -93,8 +93,8 @@ Critical items to review:
 ## Security Standards and References
 
 Always reference and apply the organization-wide guidelines:
-- [Organization Copilot Instructions](../copilot-instructions.md)
-- [Security Review Prompt](../prompts/review-security.prompt.md)
+- [Organization Copilot Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/copilot-instructions.md)
+- [Security Review Prompt](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/prompts/review-security.prompt.md)
 
 ### External Security Resources
 - OWASP Top 10

@@ -47,7 +47,7 @@ I will automatically identify:
 
 ## Java Code Analysis
 
-Reference: [Java Instructions](../instructions/java.instructions.md)
+Reference: [Java Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md)
 
 **I will analyze your Java code to:**
 - Parse method signatures and parameter types

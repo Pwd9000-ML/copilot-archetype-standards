@@ -47,7 +47,7 @@ I will automatically identify:
 
 ## Python Code Analysis
 
-Reference: [Python Instructions](../instructions/python.instructions.md)
+Reference: [Python Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md)
 
 **I will analyze your Python code to:**
 - Detect all function parameters and type hints

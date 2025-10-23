@@ -39,6 +39,6 @@ This file contains high-level coding standards and practices that apply across a
 ## Language-Specific Guidelines
 
 For detailed language-specific instructions, refer to:
-- [Python Instructions](.github/instructions/python.instructions.md)
-- [Java Instructions](.github/instructions/java.instructions.md)
-- [Terraform Instructions](.github/instructions/terraform.instructions.md)
+- [Python Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md)
+- [Java Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md)
+- [Terraform Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md)

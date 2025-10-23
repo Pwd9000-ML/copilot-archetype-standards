@@ -69,8 +69,8 @@ I will create a detailed technical plan using repository analysis:
 #### For Code Migration
 
 I will reference language-specific guidelines:
-- [Python Standards](../instructions/python.instructions.md)
-- [Java Standards](../instructions/java.instructions.md)
+- [Python Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md)
+- [Java Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md)
 
 **My Code Analysis Approach**
 Using `search` and `usages` tools, I will:
@@ -101,7 +101,7 @@ I will:
 
 #### For Infrastructure Migration
 
-I will reference: [Terraform Conventions](../instructions/terraform.instructions.md)
+I will reference: [Terraform Conventions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md)
 
 **My Infrastructure Analysis Approach**
 Using `search` to scan Terraform files, I will:

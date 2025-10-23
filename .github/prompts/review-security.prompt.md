@@ -149,7 +149,7 @@ When you request a security review, I will actively:
 I will automatically detect your language and apply specific security checks:
 
 ### Python Security Scan
-Reference: [Python Style Guide](../../docs/python-style.md)
+Reference: [Python Style Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/python-style.md)
 
 **I will search for:**
 - `eval()`, `exec()`, `compile()`, `__import__()` usage
@@ -168,7 +168,7 @@ Reference: [Python Style Guide](../../docs/python-style.md)
 - Secret key hardcoding
 
 ### Java Security Scan
-Reference: [Java Style Guide](../../docs/java-style.md)
+Reference: [Java Style Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/java-style.md)
 
 **I will search for:**
 - `ObjectInputStream` deserialization
@@ -187,7 +187,7 @@ Reference: [Java Style Guide](../../docs/java-style.md)
 - Session management
 
 ### Terraform Security Scan
-Reference: [Terraform Conventions](../../docs/terraform-conventions.md)
+Reference: [Terraform Conventions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/terraform-conventions.md)
 
 **I will search for:**
 - Hardcoded credentials in `.tf` files

@@ -47,7 +47,7 @@ I will automatically identify:
 
 ## Terraform Code Analysis
 
-Reference: [Terraform Instructions](../instructions/terraform.instructions.md)
+Reference: [Terraform Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md)
 
 **I will analyze your Terraform code to:**
 - Parse resource definitions and dependencies
