@@ -379,9 +379,3 @@ if value is None:
 with open("file.txt") as f:  # Use context managers
     data = f.read()
 ```
-
-## Resources
-
-- [Python 3.12 Release Notes](https://docs.python.org/3/whatsnew/3.12.html)
-- [PEP 695 - Type Parameter Syntax](https://peps.python.org/pep-0695/)
-- [Effective Python by Brett Slatkin](https://effectivepython.com/)

@@ -162,8 +162,3 @@ Before submitting your new file:
 - Ask questions in GitHub Discussions
 - Open an issue for clarifications
 
-## Resources
-
-- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
-- [VS Code Copilot Customization](https://code.visualstudio.com/docs/copilot/customization)
-- [Organization Standards](../..)

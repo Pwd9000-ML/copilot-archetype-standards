@@ -480,10 +480,6 @@ To add a new language archetype:
 - [Copilot Chat Documentation](https://docs.github.com/en/copilot/github-copilot-chat)
 - [Custom Instructions](https://code.visualstudio.com/docs/copilot/copilot-customization)
 
-### Style Guides
-- [PEP 8 - Python Style Guide](https://pep8.org/)
-- [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
-- [Terraform Best Practices](https://www.terraform-best-practices.com/)
 
 ### Security Resources
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
@@ -498,10 +494,10 @@ This project is licensed under the terms of the LICENSE file in the root directo
 
 For questions or issues:
 - Open an issue in this repository
-- Contact the development standards team
+- Contact @Pwd9000-ML on GitHub
 - Review existing discussions and documentation
 
 ---
 
 **Last Updated**: 2025-10-23  
-**Maintained By**: Development Standards Team
+**Maintained By**: @Pwd9000-ML

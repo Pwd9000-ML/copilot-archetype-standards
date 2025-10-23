@@ -342,9 +342,3 @@ dynamic "ip_restriction" {
   }
 }
 ```
-
-## Resources
-
-- [Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest)
-- [Azure API Provider](https://registry.terraform.io/providers/Azure/azapi/latest)
-- [Terraform Best Practices](https://www.terraform-best-practices.com/)

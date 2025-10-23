@@ -299,8 +299,3 @@ private static final Map<String, User> CACHE = new ConcurrentHashMap<>();
 public Optional<User> findUser(String id) { return Optional.ofNullable(map.get(id)); }
 ```
 
-## Resources
-
-- [Java 21 Release Notes](https://openjdk.org/projects/jdk/21/)
-- [Effective Java 3rd Edition](https://www.oreilly.com/library/view/effective-java-3rd/9780134686097/)
-- [Virtual Threads](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html)
