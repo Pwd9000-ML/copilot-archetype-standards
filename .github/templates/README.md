@@ -157,7 +157,7 @@ Before submitting your new file:
 
 ## Getting Help
 
-- See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines
+- See [CONTRIBUTING.md](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/CONTRIBUTING.md) for detailed guidelines
 - Review existing files for examples
 - Ask questions in GitHub Discussions
 - Open an issue for clarifications

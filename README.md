@@ -334,7 +334,7 @@ All agent-mode prompts and chat modes use three powerful tools for code analysis
 - **`githubRepo`**: Access repository metadata, structure, and history
 
 For detailed documentation on how to use these tools effectively, see:
-[Development Toolset Guide](.github/toolsets/development.toolset.md)
+[Development Toolset Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/toolsets/development.toolset.md)
 
 ## 🧪 Testing the Configuration
 
@@ -424,7 +424,7 @@ We welcome contributions! This repository provides standardized templates and gu
 
 ### Quick Start
 
-1. **Read the [CONTRIBUTING.md](CONTRIBUTING.md) guide** for detailed instructions
+1. **Read the [CONTRIBUTING.md](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/CONTRIBUTING.md) guide** for detailed instructions
 2. **Fork this repository**
 3. **Create a feature branch**: `git checkout -b feature/your-feature`
 4. **Make your changes** following the templates and conventions
@@ -451,7 +451,7 @@ We welcome contributions! This repository provides standardized templates and gu
 
 ### Front Matter Standards
 
-All files must include proper YAML front matter. See [CONTRIBUTING.md](CONTRIBUTING.md) for templates and examples.
+All files must include proper YAML front matter. See [CONTRIBUTING.md](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/CONTRIBUTING.md) for templates and examples.
 
 ### Testing Your Changes
 
