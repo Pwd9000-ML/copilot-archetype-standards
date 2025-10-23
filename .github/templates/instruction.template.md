@@ -91,14 +91,8 @@ Security best practices specific to this language/framework
 
 Documentation standards (docstrings, comments, etc.)
 
-## Anti-Patterns
+## Best Practices
 
-### ❌ Avoid
-```language
-// Bad example with explanation
-```
-
-### ✅ Prefer
 ```language
 // Good example with explanation
 ```

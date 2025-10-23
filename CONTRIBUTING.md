@@ -61,14 +61,7 @@ line-length = 120
 ## Best Practices
 - List key best practices
 - Include code examples
-
-## Anti-Patterns
-### ❌ Avoid
-\`\`\`language
-// Bad example
-\`\`\`
-
-### ✅ Prefer
+ 
 \`\`\`language
 // Good example
 \`\`\`
@@ -462,7 +455,7 @@ Closes #123
 
 ### Code Examples
 - Use realistic, practical examples
-- Show both ❌ bad and ✅ good patterns
+- Show only ✅ secure/approved patterns (avoid including insecure examples)
 - Include comments explaining why
 - Test that examples are syntactically correct
 

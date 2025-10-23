@@ -344,23 +344,8 @@ class UserService:
         """
 ```
 
-## Anti-Patterns
+## Best Practices
 
-### ❌ Avoid
-```python
-def add_item(item, items=[]):  # Mutable default
-    items.append(item)
-
-try:
-    risky()
-except:  # Too broad
-    pass
-
-if value == None:  # Use 'is'
-    pass
-```
-
-### ✅ Prefer
 ```python
 def add_item(item: str, items: list[str] | None = None) -> list[str]:
     if items is None:

@@ -51,13 +51,6 @@ Reference: [Java Instructions](https://github.com/Pwd9000-ML/copilot-archetype-s
 
 **SQL Injection:**
 ```java
-// ❌ VULNERABLE - String concatenation
-public User getUser(String email) {
-    String query = "SELECT * FROM users WHERE email = '" + email + "'";
-    return jdbcTemplate.queryForObject(query, new UserRowMapper());
-}
-
-// ✅ SECURE - Parameterized query
 public User getUser(String email) {
     String query = "SELECT * FROM users WHERE email = ?";
     return jdbcTemplate.queryForObject(query, new Object[]{email}, new UserRowMapper());
@@ -74,12 +67,6 @@ public User getUser(String email) {
 
 **Command Injection:**
 ```java
-// ❌ VULNERABLE - Runtime.exec with user input
-public void processFile(String filename) throws IOException {
-    Runtime.getRuntime().exec("cat " + filename);  // Command injection
-}
-
-// ✅ SECURE - ProcessBuilder with validation
 public void processFile(String filename) throws IOException {
     Path path = Paths.get(filename).normalize();
     if (!path.startsWith(Paths.get("/safe/directory"))) {
@@ -91,13 +78,6 @@ public void processFile(String filename) throws IOException {
 
 **LDAP Injection:**
 ```java
-// ❌ VULNERABLE - LDAP query with user input
-public void searchUsers(String username) {
-    String filter = "(uid=" + username + ")";  // LDAP injection
-    context.search("ou=users", filter, controls);
-}
-
-// ✅ SECURE - Escaped LDAP filter
 import org.springframework.ldap.filter.EqualsFilter;
 public void searchUsers(String username) {
     EqualsFilter filter = new EqualsFilter("uid", username);
@@ -109,15 +89,6 @@ public void searchUsers(String username) {
 
 **Weak Password Storage:**
 ```java
-// ❌ VULNERABLE - Plain text or weak hashing
-import java.security.MessageDigest;
-public String hashPassword(String password) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    byte[] hash = md.digest(password.getBytes());
-    return Base64.getEncoder().encodeToString(hash);  // Weak
-}
-
-// ✅ SECURE - BCrypt with salt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class PasswordService {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
@@ -134,17 +105,6 @@ public class PasswordService {
 
 **Session Fixation:**
 ```java
-// ❌ VULNERABLE - No session regeneration after login
-@PostMapping("/login")
-public String login(HttpServletRequest request, String username, String password) {
-    if (authenticate(username, password)) {
-        request.getSession().setAttribute("user", username);  // Session fixation
-        return "redirect:/dashboard";
-    }
-    return "login";
-}
-
-// ✅ SECURE - Regenerate session after authentication
 @PostMapping("/login")
 public String login(HttpServletRequest request, String username, String password) {
     if (authenticate(username, password)) {
@@ -160,13 +120,6 @@ public String login(HttpServletRequest request, String username, String password
 
 **Logging Sensitive Data:**
 ```java
-// ❌ VULNERABLE - Logging passwords/tokens
-import org.slf4j.Logger;
-public void login(String username, String password) {
-    logger.info("Login attempt: {} with password {}", username, password);
-}
-
-// ✅ SECURE - Sanitized logging
 import org.slf4j.Logger;
 public void login(String username, String password) {
     logger.info("Login attempt for user: {}", username);
@@ -176,15 +129,6 @@ public void login(String username, String password) {
 
 **Weak Cryptography:**
 ```java
-// ❌ VULNERABLE - Weak encryption algorithm
-import javax.crypto.Cipher;
-public byte[] encrypt(String data, SecretKey key) throws Exception {
-    Cipher cipher = Cipher.getInstance("DES");  // Weak algorithm
-    cipher.init(Cipher.ENCRYPT_MODE, key);
-    return cipher.doFinal(data.getBytes());
-}
-
-// ✅ SECURE - Strong encryption with AES-GCM
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
 public byte[] encrypt(String data, SecretKey key) throws Exception {
@@ -209,15 +153,6 @@ public byte[] encrypt(String data, SecretKey key) throws Exception {
 
 **XML Parsing:**
 ```java
-// ❌ VULNERABLE - Default XML parser allows XXE
-import javax.xml.parsers.DocumentBuilder;
-public Document parseXml(String xml) throws Exception {
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder builder = factory.newDocumentBuilder();
-    return builder.parse(new InputSource(new StringReader(xml)));  // XXE
-}
-
-// ✅ SECURE - XXE protection enabled
 import javax.xml.parsers.DocumentBuilder;
 public Document parseXml(String xml) throws Exception {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -239,14 +174,6 @@ public Document parseXml(String xml) throws Exception {
 
 **Missing Authorization Checks:**
 ```java
-// ❌ VULNERABLE - No authorization check
-@PutMapping("/api/users/{id}")
-public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-    userService.update(id, user);  // Any user can update any user
-    return ResponseEntity.ok(user);
-}
-
-// ✅ SECURE - Spring Security authorization
 @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
 @PutMapping("/api/users/{id}")
 public ResponseEntity<User> updateUser(
@@ -260,13 +187,6 @@ public ResponseEntity<User> updateUser(
 
 **Insecure Direct Object References (IDOR):**
 ```java
-// ❌ VULNERABLE - No ownership check
-@GetMapping("/api/documents/{id}")
-public Document getDocument(@PathVariable Long id) {
-    return documentService.findById(id);  // Can access any document
-}
-
-// ✅ SECURE - Ownership verification
 @GetMapping("/api/documents/{id}")
 public Document getDocument(@PathVariable Long id, Authentication auth) {
     Document doc = documentService.findById(id);
@@ -281,23 +201,6 @@ public Document getDocument(@PathVariable Long id, Authentication auth) {
 
 **CORS Misconfiguration:**
 ```java
-// ❌ VULNERABLE - Allow all origins
-@Configuration
-public class CorsConfig {
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                    .allowedOrigins("*")  // Allows any origin
-                    .allowCredentials(true);
-            }
-        };
-    }
-}
-
-// ✅ SECURE - Whitelist specific origins
 @Configuration
 public class CorsConfig {
     @Bean
@@ -318,18 +221,6 @@ public class CorsConfig {
 
 **Spring Security Misconfiguration:**
 ```java
-// ❌ VULNERABLE - Weak security configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()  // CSRF disabled
-            .authorizeRequests()
-            .anyRequest().permitAll();  // All endpoints public
-    }
-}
-
-// ✅ SECURE - Strong security configuration
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -361,14 +252,6 @@ public class SecurityConfig {
 
 **Template Injection:**
 ```java
-// ❌ VULNERABLE - Unescaped user input
-@GetMapping("/greet")
-public String greet(@RequestParam String name, Model model) {
-    model.addAttribute("name", name);
-    return "greet";  // If template uses unsafe ${name}
-}
-
-// ✅ SECURE - Thymeleaf auto-escaping
 @GetMapping("/greet")
 public String greet(@RequestParam String name, Model model) {
     model.addAttribute("name", name);
@@ -380,13 +263,6 @@ public String greet(@RequestParam String name, Model model) {
 
 **Java Deserialization:**
 ```java
-// ❌ VULNERABLE - Deserialize untrusted data
-public Object deserialize(byte[] data) throws Exception {
-    ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-    return ois.readObject();  // Remote code execution risk
-}
-
-// ✅ SECURE - Use JSON for untrusted data
 import com.fasterxml.jackson.databind.ObjectMapper;
 public <T> T deserialize(String json, Class<T> clazz) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
@@ -413,20 +289,6 @@ public Object deserialize(byte[] data, Set<String> allowedClasses) throws Except
 
 **Outdated Dependencies:**
 ```xml
-<!-- ❌ VULNERABLE - Outdated vulnerable dependencies -->
-<dependencies>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>2.5.0</version> <!-- Has vulnerabilities -->
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>2.14.0</version> <!-- Log4Shell vulnerable -->
-    </dependency>
-</dependencies>
-
 <!-- ✅ SECURE - Updated secure dependencies -->
 <dependencies>
     <dependency>
@@ -447,14 +309,6 @@ public Object deserialize(byte[] data, Set<String> allowedClasses) throws Except
 
 **Unvalidated URL Fetching:**
 ```java
-// ❌ VULNERABLE - SSRF attack
-@GetMapping("/proxy")
-public String fetchUrl(@RequestParam String url) throws IOException {
-    URL targetUrl = new URL(url);
-    return IOUtils.toString(targetUrl, StandardCharsets.UTF_8);  // SSRF
-}
-
-// ✅ SECURE - URL validation and whitelist
 @GetMapping("/proxy")
 public String fetchUrl(@RequestParam String url) throws IOException {
     URL targetUrl = new URL(url);
@@ -485,12 +339,6 @@ public String fetchUrl(@RequestParam String url) throws IOException {
 ### Path Traversal
 
 ```java
-// ❌ VULNERABLE - Path traversal
-public File readFile(String filename) {
-    return new File("/var/data/" + filename);  // Can access ../../etc/passwd
-}
-
-// ✅ SECURE - Path validation
 import java.nio.file.Path;
 import java.nio.file.Paths;
 public Path readFile(String filename) throws IOException {
@@ -508,14 +356,6 @@ public Path readFile(String filename) throws IOException {
 ### Insecure Random Numbers
 
 ```java
-// ❌ VULNERABLE - Weak random for security decisions
-import java.util.Random;
-public String generateToken() {
-    Random random = new Random();
-    return Long.toHexString(random.nextLong());  // Predictable
-}
-
-// ✅ SECURE - Cryptographically strong random
 import java.security.SecureRandom;
 public String generateToken() {
     SecureRandom random = new SecureRandom();
@@ -528,17 +368,6 @@ public String generateToken() {
 ### Race Conditions
 
 ```java
-// ❌ VULNERABLE - TOCTOU race condition
-public void writeFile(String filename, String data) throws IOException {
-    File file = new File(filename);
-    if (!file.exists()) {
-        FileWriter writer = new FileWriter(file);
-        writer.write(data);
-        writer.close();
-    }
-}
-
-// ✅ SECURE - Atomic file creation
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 public void writeFile(String filename, String data) throws IOException {
@@ -569,8 +398,7 @@ Vulnerability: A03:2021 - Injection (CWE-89)
 
 Evidence:
 ```java
-String query = "SELECT * FROM users WHERE email = '" + email + "'";
-jdbcTemplate.queryForObject(query, new UserRowMapper());
+// Evidence snippet from the reviewed code will be shown here
 ```
 
 Impact: SQL injection allows attackers to bypass authentication, extract sensitive data, modify database records, or execute administrative operations.

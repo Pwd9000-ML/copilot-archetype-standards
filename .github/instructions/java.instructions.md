@@ -283,16 +283,8 @@ dependencies {
 }
 ```
 
-## Anti-Patterns
+## Best Practices
 
-### ❌ Avoid
-```java
-catch (Exception e) { e.printStackTrace(); }  // Too broad, use logger
-private static Map<String, User> cache = new HashMap<>();  // Not thread-safe
-public User findUser(String id) { return map.get(id); }  // Can return null
-```
-
-### ✅ Prefer
 ```java
 catch (IOException e) { log.error("Failed", e); }
 private static final Map<String, User> CACHE = new ConcurrentHashMap<>();

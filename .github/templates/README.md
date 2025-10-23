@@ -16,8 +16,8 @@ Template for creating new language or framework instruction files.
 2. Replace all `{placeholders}` with actual values
 3. Fill in all sections with relevant content
 4. Add code examples for each pattern
-5. Include both good and bad examples (✅ and ❌)
-6. Link to official documentation
+5. Include concise, correct examples.
+6. Link to official documentation.
 
 ### `prompt.template.md`
 Template for creating new prompt files with agent capabilities.
@@ -117,14 +117,11 @@ All files must start with YAML front matter enclosed in `---`:
 ### Common Patterns
 
 #### Code Examples
-Always include both good and bad examples:
+Always include clear, correct examples only:
 
 ```language
-# ❌ Avoid - Bad practice
-// problematic code
-
-# ✅ Prefer - Good practice
-// improved code
+# ✅ Preferred pattern
+// improved code example here
 ```
 
 #### Tool Usage
@@ -161,4 +158,3 @@ Before submitting your new file:
 - Review existing files for examples
 - Ask questions in GitHub Discussions
 - Open an issue for clarifications
-

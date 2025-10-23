@@ -51,12 +51,6 @@ Reference: [Python Instructions](https://github.com/Pwd9000-ML/copilot-archetype
 
 **SQL Injection:**
 ```python
-# ❌ VULNERABLE - String concatenation
-def get_user(email):
-    query = f"SELECT * FROM users WHERE email = '{email}'"
-    cursor.execute(query)  # SQL injection risk
-
-# ✅ SECURE - Parameterized query
 def get_user(email):
     query = "SELECT * FROM users WHERE email = ?"
     cursor.execute(query, (email,))
@@ -64,12 +58,6 @@ def get_user(email):
 
 **Command Injection:**
 ```python
-# ❌ VULNERABLE - Shell=True with user input
-import subprocess
-def process_file(filename):
-    subprocess.run(f"cat {filename}", shell=True)  # Command injection
-
-# ✅ SECURE - No shell, validated input
 import subprocess
 from pathlib import Path
 def process_file(filename):
@@ -81,11 +69,6 @@ def process_file(filename):
 
 **NoSQL Injection:**
 ```python
-# ❌ VULNERABLE - Direct user input in query
-def find_user(username):
-    return db.users.find_one({"username": username, "admin": {"$ne": True}})
-
-# ✅ SECURE - Validate and sanitize input
 def find_user(username: str):
     if not isinstance(username, str) or len(username) > 50:
         raise ValueError("Invalid username")
@@ -96,12 +79,6 @@ def find_user(username: str):
 
 **Weak Password Storage:**
 ```python
-# ❌ VULNERABLE - Plain text or weak hashing
-import hashlib
-def store_password(password):
-    hashed = hashlib.md5(password.encode()).hexdigest()  # Weak algorithm
-
-# ✅ SECURE - Strong password hashing
 from argon2 import PasswordHasher
 ph = PasswordHasher()
 def store_password(password: str) -> str:
@@ -116,11 +93,6 @@ def verify_password(password: str, hash: str) -> bool:
 
 **Session Management:**
 ```python
-# ❌ VULNERABLE - Predictable session IDs
-def create_session(user_id):
-    session_id = str(user_id) + str(time.time())  # Predictable
-
-# ✅ SECURE - Cryptographically random session IDs
 import secrets
 def create_session(user_id):
     session_id = secrets.token_urlsafe(32)
@@ -133,12 +105,6 @@ def create_session(user_id):
 
 **Logging Sensitive Data:**
 ```python
-# ❌ VULNERABLE - Logging passwords/tokens
-import logging
-def login(username, password):
-    logging.info(f"Login attempt: {username} with password {password}")
-
-# ✅ SECURE - Sanitized logging
 import logging
 def login(username: str, password: str):
     logging.info(f"Login attempt: {username}")
@@ -147,12 +113,6 @@ def login(username: str, password: str):
 
 **Insecure Data Transmission:**
 ```python
-# ❌ VULNERABLE - HTTP for sensitive data
-import requests
-def send_payment(card_number):
-    requests.post("http://api.example.com/pay", json={"card": card_number})
-
-# ✅ SECURE - HTTPS only
 import requests
 def send_payment(card_number: str):
     response = requests.post(
@@ -168,12 +128,6 @@ def send_payment(card_number: str):
 
 **XML Parsing:**
 ```python
-# ❌ VULNERABLE - Default XML parser allows XXE
-import xml.etree.ElementTree as ET
-def parse_xml(xml_data):
-    return ET.fromstring(xml_data)  # XXE vulnerable
-
-# ✅ SECURE - Defused XML parser
 import defusedxml.ElementTree as ET
 def parse_xml(xml_data: str):
     return ET.fromstring(xml_data)  # XXE protection
@@ -183,13 +137,6 @@ def parse_xml(xml_data: str):
 
 **Missing Authorization Checks:**
 ```python
-# ❌ VULNERABLE - No authorization check
-@app.route('/api/user/<int:user_id>/profile', methods=['PUT'])
-def update_profile(user_id):
-    data = request.json
-    update_user_profile(user_id, data)  # Any user can update any profile
-
-# ✅ SECURE - Authorization check
 from flask import session, abort
 @app.route('/api/user/<int:user_id>/profile', methods=['PUT'])
 def update_profile(user_id: int):
@@ -204,12 +151,6 @@ def update_profile(user_id: int):
 
 **Debug Mode in Production:**
 ```python
-# ❌ VULNERABLE - Debug mode enabled
-from flask import Flask
-app = Flask(__name__)
-app.config['DEBUG'] = True  # Never in production
-
-# ✅ SECURE - Production configuration
 from flask import Flask
 import os
 app = Flask(__name__)
@@ -221,12 +162,6 @@ if not app.config['SECRET_KEY']:
 
 **Insecure Defaults:**
 ```python
-# ❌ VULNERABLE - Insecure Flask session cookie
-from flask import Flask
-app = Flask(__name__)
-app.config['SESSION_COOKIE_SECURE'] = False  # Insecure
-
-# ✅ SECURE - Secure cookie configuration
 from flask import Flask
 app = Flask(__name__)
 app.config.update(
@@ -241,13 +176,6 @@ app.config.update(
 
 **Template Injection:**
 ```python
-# ❌ VULNERABLE - Unescaped user input in template
-from flask import Flask, render_template_string
-@app.route('/greet/<name>')
-def greet(name):
-    return render_template_string(f"<h1>Hello {name}</h1>")  # XSS
-
-# ✅ SECURE - Auto-escaped templates
 from flask import Flask, render_template
 @app.route('/greet/<name>')
 def greet(name: str):
@@ -258,12 +186,6 @@ def greet(name: str):
 
 **Pickle Usage:**
 ```python
-# ❌ VULNERABLE - Pickle with untrusted data
-import pickle
-def load_data(data):
-    return pickle.loads(data)  # Remote code execution risk
-
-# ✅ SECURE - Use JSON for untrusted data
 import json
 def load_data(data: str):
     return json.loads(data)  # Safe for untrusted input
@@ -273,12 +195,6 @@ def load_data(data: str):
 
 **Outdated Dependencies:**
 ```python
-# ❌ VULNERABLE - Outdated vulnerable packages
-# requirements.txt:
-# django==2.0.0  # Known vulnerabilities
-# requests==2.0.0
-
-# ✅ SECURE - Updated secure packages
 # requirements.txt:
 # django>=4.2,<5.0  # Latest stable with security fixes
 # requests>=2.31.0
@@ -289,11 +205,6 @@ def load_data(data: str):
 
 **Inadequate Logging:**
 ```python
-# ❌ VULNERABLE - No security event logging
-def delete_user(user_id):
-    db.delete(user_id)  # No audit trail
-
-# ✅ SECURE - Comprehensive security logging
 import logging
 import structlog
 logger = structlog.get_logger()
@@ -314,12 +225,6 @@ def delete_user(user_id: int, admin_id: int):
 ### Path Traversal
 
 ```python
-# ❌ VULNERABLE - Path traversal
-def read_file(filename):
-    with open(f"/var/data/{filename}") as f:
-        return f.read()  # Can access ../../../../etc/passwd
-
-# ✅ SECURE - Path validation
 from pathlib import Path
 def read_file(filename: str) -> str:
     base_dir = Path("/var/data")
@@ -333,14 +238,6 @@ def read_file(filename: str) -> str:
 ### Race Conditions
 
 ```python
-# ❌ VULNERABLE - TOCTOU race condition
-import os
-def safe_write(filename, data):
-    if not os.path.exists(filename):
-        with open(filename, 'w') as f:
-            f.write(data)  # Race condition
-
-# ✅ SECURE - Atomic operation
 def safe_write(filename: str, data: str):
     fd = os.open(filename, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
     with os.fdopen(fd, 'w') as f:
@@ -350,12 +247,6 @@ def safe_write(filename: str, data: str):
 ### Regular Expression Denial of Service (ReDoS)
 
 ```python
-# ❌ VULNERABLE - Catastrophic backtracking
-import re
-pattern = r'^(a+)+$'
-re.match(pattern, 'a' * 50 + '!')  # ReDoS
-
-# ✅ SECURE - Simple, efficient regex with timeout
 import re
 import signal
 def safe_regex_match(pattern: str, text: str, timeout: int = 1) -> bool:
@@ -392,7 +283,7 @@ Vulnerability: A02:2021 - Cryptographic Failures (CWE-328)
 
 Evidence:
 ```python
-password_hash = hashlib.md5(password.encode()).hexdigest()
+# Evidence snippet from the reviewed code will be shown here
 ```
 
 Impact: Weak password hashing allows attackers to crack passwords using rainbow tables or brute force. MD5 is cryptographically broken and unsuitable for password storage.
