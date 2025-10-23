@@ -42,10 +42,13 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 │   │   ├── python.instructions.md
 │   │   ├── java.instructions.md
 │   │   └── terraform.instructions.md
-│   ├── prompts/                             # Reusable prompt files
-│   │   ├── review-security.prompt.md
-│   │   ├── generate-tests.prompt.md
-│   │   └── plan-migration.prompt.md
+│   ├── prompts/                             # Reusable prompt files (agent mode enhanced)
+│   │   ├── implement-feature.prompt.md      # NEW: Feature implementation guide
+│   │   ├── debug-issue.prompt.md            # NEW: Systematic debugging
+│   │   ├── refactor-code.prompt.md          # NEW: Safe refactoring
+│   │   ├── generate-tests.prompt.md         # Enhanced for agent mode
+│   │   ├── review-security.prompt.md        # Enhanced with automated scanning
+│   │   └── plan-migration.prompt.md         # Enhanced with execution guidance
 │   └── chatmodes/                           # Custom chat modes
 │       ├── reviewer.chatmode.md
 │       └── planner.chatmode.md
@@ -71,16 +74,18 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 #### `.github/prompts/*.prompt.md`
 - **Purpose**: Reusable prompt templates for common tasks
 - **Scope**: Workspace or user-scoped
-- **Support**: GitHub Copilot Chat
-- **Format**: Front matter with `mode` and `description` fields
+- **Support**: GitHub Copilot Chat, Coding Agent
+- **Format**: Front matter with `mode` (ask/agent) and `description` fields
 - **Usage**: Can reference other workspace files via relative paths
+- **Agent Mode**: Includes automated commands, validation steps, and progress reporting guidance
 
 #### `.github/chatmodes/*.chatmode.md`
 - **Purpose**: Custom chat modes for specialized workflows
 - **Scope**: Workspace-scoped
-- **Support**: GitHub Copilot Chat
+- **Support**: GitHub Copilot Chat, Coding Agent
 - **Format**: Front matter with `description` and `tools` fields
 - **Usage**: Can reference instruction files via Markdown links
+- **Agent Mode**: Enhanced with automated discovery commands and tool usage guidance
 
 #### `docs/*.md`
 - **Purpose**: Extended style guides and conventions
@@ -240,8 +245,170 @@ terraform-project/
 - **prompts/*.prompt.md**: Available as reusable prompts in Copilot Chat
 - **chatmodes/*.chatmode.md**: Activate specialized modes for focused development tasks
 
+## 🤖 Agent Mode Enhancements
+
+This repository now includes **Agent Mode** optimizations for GitHub Copilot's Coding Agent, providing enhanced capabilities for autonomous code development.
+
+### Agent Mode Features
+
+#### Enhanced Prompt Files
+All prompt files now include agent-specific workflows:
+
+**New Agent-Specific Prompts:**
+- **implement-feature.prompt.md** - Complete guide for feature implementation with agent
+  - Phase-based workflow (understand → plan → implement → validate → complete)
+  - Language-specific commands and patterns
+  - Parallel operations and efficiency tips
+  - Error recovery and security guidance
+
+- **debug-issue.prompt.md** - Systematic debugging with agent capabilities
+  - Root cause analysis methodology
+  - Language-specific debugging commands
+  - Common issue patterns and solutions
+  - Agent-optimized investigation techniques
+
+- **refactor-code.prompt.md** - Safe refactoring with comprehensive testing
+  - Test-first refactoring approach
+  - Common refactoring patterns with examples
+  - Incremental validation workflow
+  - Language-specific modernization patterns
+
+**Enhanced Existing Prompts:**
+- **generate-tests.prompt.md** - Now includes agent workflow and automation commands
+- **review-security.prompt.md** - Integrated with CodeQL and dependency scanners
+- **plan-migration.prompt.md** - Added executable migration patterns
+
+#### Agent-Enhanced Chat Modes
+Chat modes updated with agent capabilities:
+
+**Planner Mode Enhancements:**
+- Automated codebase discovery commands
+- Parallel file analysis
+- Executable planning with proof-of-concepts
+- Progress tracking with report_progress
+
+**Reviewer Mode Enhancements:**
+- CodeQL integration (codeql_checker tool)
+- Dependency vulnerability scanning (gh-advisory-database tool)
+- Language-specific security scanners
+- Automated fix validation
+
+### Agent Mode Best Practices
+
+#### Core Principles
+1. **Read First**: Understand the codebase before making changes
+2. **Test Early**: Run existing tests to establish baseline
+3. **Change Minimally**: Make surgical, focused modifications
+4. **Validate Frequently**: Test and lint after each change
+5. **Report Progress**: Use report_progress after each significant milestone
+6. **Secure by Default**: Run security scanners (CodeQL, dependency checks)
+
+#### Agent-Specific Commands
+
+**Automated Discovery:**
+```bash
+# Analyze codebase structure
+find . -name "*.py" -o -name "*.java" -o -name "*.tf" | wc -l
+
+# Check dependencies
+pip list              # Python
+./gradlew dependencies # Java
+terraform providers   # Terraform
+
+# Analyze git history
+git log --oneline --since="3 months ago" | wc -l
+```
+
+**Security Scanning:**
+```bash
+# CodeQL (via codeql_checker tool)
+# Dependency scanning (via gh-advisory-database tool)
+
+# Language-specific scanners
+bandit -r src/         # Python
+tfsec .                # Terraform
+./gradlew spotbugsMain # Java
+```
+
+**Testing & Validation:**
+```bash
+# Run tests
+pytest tests/          # Python
+./gradlew test         # Java
+terraform validate     # Terraform
+
+# Check coverage
+pytest --cov=src tests/
+./gradlew jacocoTestReport
+```
+
+### Using Agent Mode Effectively
+
+#### For Feature Implementation
+1. Use **implement-feature.prompt.md** as your guide
+2. Follow the phase-based workflow
+3. Use parallel operations for efficiency
+4. Report progress frequently
+5. Validate with tests and linters
+
+#### For Security Reviews
+1. Use **review-security.prompt.md** with agent enhancements
+2. Run automated tools (CodeQL, dependency scanner)
+3. Fix critical issues immediately
+4. Document issues requiring broader changes
+5. Re-scan to verify fixes
+
+#### For Debugging
+1. Use **debug-issue.prompt.md** for systematic approach
+2. Gather evidence with automated commands
+3. Test hypotheses incrementally
+4. Fix minimally and validate
+5. Report findings and solutions
+
+#### For Refactoring
+1. Use **refactor-code.prompt.md** for safe refactoring
+2. Ensure comprehensive tests exist first
+3. Make small, incremental changes
+4. Test after each refactoring step
+5. Validate no functionality changed
+
+### Agent Mode Tools Reference
+
+**Available Tools:**
+- `codeql_checker` - Security vulnerability scanning
+- `gh-advisory-database` - Dependency vulnerability checking
+- `view` - Read files and directories
+- `str_replace` - Make surgical code changes
+- `bash` - Run commands and scripts
+- `report_progress` - Commit and report progress
+
+**Security Tools (Mandatory):**
+- Always use `codeql_checker` after code changes
+- Always use `gh-advisory-database` before adding dependencies
+- Run language-specific scanners (bandit, tfsec, spotbugs)
+
+### Progress Reporting with Agent Mode
+
+Agent mode emphasizes frequent progress reporting:
+
+**When to Report:**
+- After creating initial plan
+- After each validated code change
+- After fixing security issues
+- After completing test generation
+- Before switching focus areas
+- Upon completion of tasks
+
+**What to Include:**
+- Updated checklist showing progress
+- Summary of changes made
+- Test/validation results
+- Security scan results (if applicable)
+- Next steps planned
+
 ### Example Copilot Workflows
 
+#### Chat Mode Workflows (Interactive Assistance)
 **Security Review:**
 1. Select code to review
 2. Open Copilot Chat
@@ -259,6 +426,35 @@ terraform-project/
 2. Reference: `/prompt plan-migration`
 3. Describe migration scenario
 4. Copilot provides detailed migration plan
+
+#### Agent Mode Workflows (Autonomous Execution)
+**Implement Feature:**
+1. Create issue or PR describing the feature
+2. Agent reads issue/PR and codebase
+3. Uses `/prompt implement-feature` guidance
+4. Agent implements, tests, and validates changes
+5. Reports progress with commits
+
+**Debug and Fix:**
+1. Create issue describing the bug
+2. Agent reproduces the issue
+3. Uses `/prompt debug-issue` methodology
+4. Agent identifies root cause and fixes
+5. Validates fix with tests
+
+**Refactor Code:**
+1. Identify code to refactor in issue/PR
+2. Agent analyzes code and dependencies
+3. Uses `/prompt refactor-code` approach
+4. Agent refactors incrementally with tests
+5. Validates no behavior changed
+
+**Security Review with Fixes:**
+1. Agent scans code with `/prompt review-security`
+2. Runs automated tools (CodeQL, dependency scanner)
+3. Fixes critical/high issues automatically
+4. Documents remaining issues
+5. Reports comprehensive security summary
 
 ## 🧪 Testing the Configuration
 
@@ -401,7 +597,52 @@ For questions or issues:
 - Contact the development standards team
 - Review existing discussions and documentation
 
+## 📊 Agent Mode Quick Reference
+
+### Prompt File Selection Guide
+
+| Task | Prompt File | Key Features |
+|------|-------------|--------------|
+| Implement new feature | `implement-feature.prompt.md` | Phase-based workflow, parallel operations, progress reporting |
+| Debug issue or failure | `debug-issue.prompt.md` | Root cause analysis, hypothesis testing, language-specific debugging |
+| Refactor code safely | `refactor-code.prompt.md` | Test-first approach, incremental changes, validation |
+| Generate unit tests | `generate-tests.prompt.md` | Agent workflow, coverage tools, test patterns |
+| Security review | `review-security.prompt.md` | CodeQL integration, dependency scanning, OWASP checklist |
+| Plan/execute migration | `plan-migration.prompt.md` | Automated discovery, incremental execution, validation |
+
+### Security Tool Requirements
+
+| Tool | When to Use | Status | Ecosystems Supported |
+|------|-------------|--------|---------------------|
+| `codeql_checker` | After ANY code changes | **MANDATORY** | All languages |
+| `gh-advisory-database` | Before adding dependencies | **MANDATORY** | npm, pip, maven, go, rubygems, rust, swift, composer, nuget |
+| Language scanners | During security review | Recommended | bandit (Python), tfsec (Terraform), spotbugs (Java) |
+
+### Agent Mode vs Chat Mode
+
+| Feature | Chat Mode | Agent Mode |
+|---------|-----------|------------|
+| **Purpose** | Interactive assistance and guidance | Autonomous implementation and execution |
+| **User Involvement** | High - user drives conversation | Low - agent executes independently |
+| **Code Changes** | User applies suggestions manually | Agent makes changes directly |
+| **Testing** | User runs tests | Agent runs tests automatically |
+| **Validation** | User validates changes | Agent validates before committing |
+| **Progress Tracking** | Informal | Formal with report_progress |
+| **Security Scanning** | Manual | Automated with tools |
+| **Best For** | Exploration, learning, planning | Implementation, debugging, refactoring |
+
+### File Type Quick Reference
+
+| File Type | Extension | Mode Support | Auto-Applied | Purpose |
+|-----------|-----------|--------------|--------------|---------|
+| Copilot Instructions | `copilot-instructions.md` | Both | ✅ Always | Organization-wide high-level rules |
+| Instruction Files | `.instructions.md` | Both | ✅ When matching path | Path/language-specific rules |
+| Prompt Files | `.prompt.md` | Agent preferred | ❌ On reference | Task-specific workflows |
+| Chat Modes | `.chatmode.md` | Both | ❌ On activation | Specialized development modes |
+| Style Guides | `.md` | Both | ❌ On reference | Extended documentation |
+
 ---
 
 **Last Updated**: 2025-10-23  
+**Version**: 2.0 - Agent Mode Enhanced  
 **Maintained By**: Development Standards Team
