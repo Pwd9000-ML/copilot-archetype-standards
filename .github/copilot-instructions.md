@@ -20,6 +20,7 @@ This file contains high-level coding standards and practices that apply across a
 - Avoid deep nesting of code blocks for better readability
 - Use consistent indentation and formatting
 - Limit line length to 80-120 characters for better readability
+- Verify code correctness with static analysis tools and linters
 
 ## Security
 
