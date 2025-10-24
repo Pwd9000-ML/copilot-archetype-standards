@@ -181,7 +181,7 @@ python-project/
 
 ### Java Archetype
 
-- Java 17 LTS or later (Java 21 LTS recommended)
+- Java 21 LTS baseline. If constrained to Java 17 LTS, review the Java Instructions for any limitations.
 - Google Java Style Guide with `google-java-format`
 - Testing with JUnit 5 and AssertJ
 - Build with Gradle or Maven
@@ -205,7 +205,7 @@ java-project/
 
 ### Terraform Archetype
 
-- Terraform >= 1.6.0 with pinned provider versions
+- Terraform >= 1.13 with pinned provider versions (Azure-focused providers)
 - Format with `terraform fmt`, lint with `tflint`
 - Security scanning with `tfsec` or `checkov`
 - Remote state with encryption enabled
