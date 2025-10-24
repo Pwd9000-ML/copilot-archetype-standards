@@ -62,10 +62,6 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 │   │   └── terraform.sec-reviewer.chatmode.md  # Terraform security review
 │   └── toolsets/                            # Tool documentation
 │       └── development.toolset.md           # search, usages, githubRepo tools
-└── docs/
-    ├── python-style.md                      # Extended Python guidelines
-    ├── java-style.md                        # Extended Java guidelines
-    └── terraform-conventions.md             # Extended Terraform guidelines
 ```
 
 ### File Types and Purposes
@@ -100,13 +96,7 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 - **Scope**: Workspace-scoped
 - **Support**: GitHub Copilot Chat
 - **Format**: Front matter with `description` and `tools` fields
-- **Usage**: Can reference instruction files via Markdown links
-
-#### `docs/*.md`
-- **Purpose**: Extended style guides and conventions
-- **Scope**: Referenced by instruction and prompt files
-- **Support**: Any Markdown viewer
-- **Usage**: Detailed guidelines that complement instruction files
+- **Usage**: Can reference instruction files via Markdown links 
 
 #### `.github/toolsets/*.toolset.md`
 - **Purpose**: Documentation of available tools (search, usages, githubRepo)
@@ -128,8 +118,7 @@ git clone https://github.com/Pwd9000-ML/copilot-archetype-standards.git
 # Copy .github directory to your project
 cp -r copilot-archetype-standards/.github /path/to/your/project/
 
-# Copy docs if needed
-cp -r copilot-archetype-standards/docs /path/to/your/project/
+
 ```
 
 ### Option 2: Reference via Markdown Links (Experimental)
@@ -181,7 +170,7 @@ ln -s standards/.github/copilot-instructions.md .github/copilot-instructions.md
 - Testing with `pytest` under `tests/` directory
 **Key Standards:**
 \
-See: [Python Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md) | [Python Style Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/python-style.md)
+See: [Python Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md)
 
 **Example Project Structure:**
 ```
@@ -206,7 +195,7 @@ python-project/
 - Build with Gradle or Maven
 **Key Standards:**
 \
-See: [Java Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md) | [Java Style Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/java-style.md)
+See: [Java Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md)
 
 **Example Project Structure:**
 ```
@@ -230,7 +219,7 @@ java-project/
 - Remote state with encryption enabled
 **Key Standards:**
 \
-See: [Terraform Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md) | [Terraform Conventions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/terraform-conventions.md)
+See: [Terraform Instructions](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/terraform.instructions.md)
 
 **Example Project Structure:**
 ```
@@ -366,8 +355,8 @@ To verify whether GitHub Copilot follows instructions from external repositories
 - Verify: Does Copilot follow OWASP Top 10 checklist?
 
 **Test 3: Cross-Reference**
-- Ask Copilot about style guidelines
-- Verify: Does it reference the central repository docs?
+- Ask Copilot about coding standards
+- Verify: Does it reference the central repository instruction files?
 
 **Test 4: Updates Propagation**
 - Update central repository instructions
@@ -389,7 +378,7 @@ cat > .github/copilot-instructions.md << 'EOF'
 Follow organization standards: 
 https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md
 
-See: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/python-style.md
+
 EOF
 
 # 3. Create test file
@@ -436,7 +425,7 @@ We welcome contributions! This repository provides standardized templates and gu
 - **Instruction Files**: Language or framework-specific standards (`.github/instructions/`)
 - **Prompt Files**: Reusable templates for common tasks (`.github/prompts/`)
 - **Chat Modes**: Specialized development workflows (`.github/chatmodes/`)
-- **Style Guides**: Extended guidelines and conventions (`docs/`)
+
 - **Toolsets**: Documentation for development tools (`.github/toolsets/`)
 
 ### File Naming Conventions
@@ -446,7 +435,7 @@ We welcome contributions! This repository provides standardized templates and gu
 | Instruction | `{language}.instructions.md` | `python.instructions.md` |
 | Prompt | `{scope}.{purpose}.prompt.md` | `python.generate-tests.prompt.md` |
 | Chat Mode | `{language}.{mode}.chatmode.md` | `java.planner.chatmode.md` |
-| Style Guide | `{language}-style.md` | `python-style.md` |
+
 | Toolset | `{category}.toolset.md` | `development.toolset.md` |
 
 ### Front Matter Standards
@@ -469,9 +458,8 @@ To add a new language archetype:
 1. Create instruction file: `.github/instructions/{language}.instructions.md`
 2. Create prompt files: `.github/prompts/{language}.*.prompt.md`
 3. Create chat modes: `.github/chatmodes/{language}.*.chatmode.md`
-4. Create style guide: `docs/{language}-style.md`
-5. Update this README with archetype information
-6. Add examples and usage documentation
+4. Update this README with archetype information
+5. Add examples and usage documentation
 
 ## 📖 Additional Resources
 

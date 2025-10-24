@@ -190,51 +190,7 @@ Operating constraints:
 - See `.github/chatmodes/python.planner.chatmode.md`
 - See `.github/chatmodes/java.sec-reviewer.chatmode.md`
 
-### Adding a New Style Guide
-
-Style guides provide extended guidelines and conventions.
-
-**Location**: `docs/`
-
-**Naming**: `{language}-style.md` or `{framework}-conventions.md`
-
-**Template**:
-```markdown
-# {Language} Style Guide
-
-Extended style guidelines and best practices for {language} development.
-
-## Code Organization
-- Project structure
-- File organization
-- Module layout
-
-## Naming Conventions
-- Classes
-- Functions
-- Variables
-- Constants
-
-## Documentation Standards
-- Docstring format
-- Comment style
-- Examples
-
-## Testing Patterns
-- Test structure
-- Naming conventions
-- Assertion style
-
-## Common Patterns
-- Pattern 1 with examples
-- Pattern 2 with examples
-
-## Anti-Patterns to Avoid
-- Anti-pattern 1 with alternatives
-- Anti-pattern 2 with alternatives
-```
-
-**Examples**: See `docs/python-style.md`
+ 
 
 ## File Naming Conventions
 
@@ -255,10 +211,7 @@ Extended style guidelines and best practices for {language} development.
 - Examples: `python.planner.chatmode.md`, `java.sec-reviewer.chatmode.md`
 - Location: `.github/chatmodes/`
 
-### Style Guide Files
-- Format: `{language}-style.md` or `{framework}-conventions.md`
-- Examples: `python-style.md`, `terraform-conventions.md`
-- Location: `docs/`
+ 
 
 ### Toolset Files
 - Format: `{category}.toolset.md`

@@ -18,7 +18,7 @@ You are a README update agent. Your job is to analyze the repository and produce
 
 ## Analysis workflow (use tools)
 
-1. Use `githubRepo` to get owner, repo, default branch, and detect key files: `README.md`, `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `.github/*`, `docs/*`.
+1. Use `githubRepo` to get owner, repo, default branch, and detect key files: `README.md`, `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `.github/*`.
 2. Use `search` to discover:
 	 - Primary language(s) and build files (e.g., `pyproject.toml`, `package.json`, `build.gradle`, `pom.xml`, `Dockerfile`, `main.tf`).
 	 - Entrypoints or run scripts (e.g., `src/*`, `app/*`, `Makefile`, scripts in `package.json`).

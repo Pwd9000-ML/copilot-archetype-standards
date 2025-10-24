@@ -99,10 +99,6 @@ These resources provide additional, technology-specific guidance. Always use the
 	https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/java.instructions.md
 
 
-- Extended Style Guides:
-	- Python Style: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/python-style.md
-	- Java Style: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/java-style.md
-	- Terraform Conventions: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/terraform-conventions.md
 
 ## Working with GitHub Copilot and Chat Modes
 

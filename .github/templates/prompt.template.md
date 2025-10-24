@@ -119,7 +119,6 @@ What this prompt excels at:
 ## Related Resources
 
 - [Related Instruction File](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/language.instructions.md)
-- [Related Style Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/docs/language-style.md)
 
 ---
 
