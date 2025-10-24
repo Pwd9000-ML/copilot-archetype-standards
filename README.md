@@ -60,8 +60,7 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 │   │   ├── java.sec-reviewer.chatmode.md    # Java security review
 │   │   ├── terraform.planner.chatmode.md    # Infrastructure planning
 │   │   └── terraform.sec-reviewer.chatmode.md  # Terraform security review
-│   └── toolsets/                            # Tool documentation
-│       └── development.toolset.md           # search, usages, githubRepo tools
+│   
 ```
 
 ### File Types and Purposes
@@ -97,13 +96,6 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 - **Support**: GitHub Copilot Chat
 - **Format**: Front matter with `description` and `tools` fields
 - **Usage**: Can reference instruction files via Markdown links 
-
-#### `.github/toolsets/*.toolset.md`
-- **Purpose**: Documentation of available tools (search, usages, githubRepo)
-- **Scope**: Workspace-scoped
-- **Support**: GitHub Copilot Chat
-- **Format**: Front matter with `description` field
-- **Usage**: Reference guide for effective tool usage in prompts and chat modes
 
 ## 🚀 How to Use
 
@@ -322,8 +314,11 @@ All agent-mode prompts and chat modes use three powerful tools for code analysis
 - **`usages`**: Trace how functions, classes, and symbols are used
 - **`githubRepo`**: Access repository metadata, structure, and history
 
-For detailed documentation on how to use these tools effectively, see:
-[Development Toolset Guide](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/toolsets/development.toolset.md)
+For examples of how these tools are used in practice, see these prompts:
+- Global Code Review: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/prompts/global.code-review.prompt.md
+- Python Generate Tests: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/prompts/python.generate-tests.prompt.md
+- Java Generate Tests: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/prompts/java.generate-tests.prompt.md
+- Terraform Generate Tests: https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/prompts/terraform.generate-tests.prompt.md
 
 ## 🧪 Testing the Configuration
 
@@ -425,9 +420,7 @@ We welcome contributions! This repository provides standardized templates and gu
 - **Instruction Files**: Language or framework-specific standards (`.github/instructions/`)
 - **Prompt Files**: Reusable templates for common tasks (`.github/prompts/`)
 - **Chat Modes**: Specialized development workflows (`.github/chatmodes/`)
-
-- **Toolsets**: Documentation for development tools (`.github/toolsets/`)
-
+0
 ### File Naming Conventions
 
 | Type | Format | Example |
@@ -435,8 +428,6 @@ We welcome contributions! This repository provides standardized templates and gu
 | Instruction | `{language}.instructions.md` | `python.instructions.md` |
 | Prompt | `{scope}.{purpose}.prompt.md` | `python.generate-tests.prompt.md` |
 | Chat Mode | `{language}.{mode}.chatmode.md` | `java.planner.chatmode.md` |
-
-| Toolset | `{category}.toolset.md` | `development.toolset.md` |
 
 ### Front Matter Standards
 
