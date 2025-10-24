@@ -88,15 +88,20 @@ def process[T](result: Success[T] | Error) -> str:
 
 ### Exception Groups
 ```python
+from typing import Any
+
+
 class ValidationError(Exception):
     pass
+
 
 class FieldError(ValidationError):
     def __init__(self, field: str, message: str) -> None:
         self.field = field
         super().__init__(f"{field}: {message}")
 
-async def validate(data: dict[str, any]) -> None:
+
+async def validate(data: dict[str, Any]) -> None:
     errors: list[Exception] = []
     if "email" not in data:
         errors.append(FieldError("email", "required"))
