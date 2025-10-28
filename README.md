@@ -22,6 +22,8 @@ This repository serves as a central source of truth for:
 - **Custom agents** for specialized development workflows
 - **Language-specific style guides** for Python, Java, and Terraform
 
+Also see [VS Code Customization](https://code.visualstudio.com/docs/copilot/customization/overview) for more about GitHub Copilot customization.
+
 ### Why This Repository?
 
 GitHub Copilot custom instruction files, prompt files, and agents cannot be centrally managed, even in GitHub Enterprise Cloud (GHEC). This repository provides a workaround by:
