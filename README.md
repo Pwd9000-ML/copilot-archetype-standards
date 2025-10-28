@@ -49,18 +49,21 @@ GitHub Copilot custom instruction files, prompt files, and agents cannot be cent
 │   ├── prompts/                             # Reusable prompt files with agent mode
 │   │   ├── global.code-review.prompt.md     # Language-agnostic code review
 │   │   ├── global.update-readme.prompt.md   # README generation/updates
+│   │   ├── python.generate-module.prompt.md # Python module generation
 │   │   ├── python.generate-tests.prompt.md  # pytest test generation
 │   │   ├── python.review-security.prompt.md # Python OWASP security review
+│   │   ├── java.generate-module.prompt.md   # Java module generation
 │   │   ├── java.generate-tests.prompt.md    # JUnit 5 test generation
 │   │   ├── java.review-security.prompt.md   # Java OWASP security review
+│   │   ├── terraform.generate-module.prompt.md     # Terraform module generation
 │   │   ├── terraform.generate-tests.prompt.md      # Terratest generation
 │   │   └── terraform.azure.review-security.prompt.md  # Azure security review
 │   ├── agents/                              # Custom agents
-│   │   ├── python.planner.agent.md          # Python strategic planning
+│   │   ├── python.planner.agent.md          # Python module builder
 │   │   ├── python.sec-reviewer.agent.md     # Python security review
-│   │   ├── java.planner.agent.md            # Java strategic planning
+│   │   ├── java.planner.agent.md            # Java module builder
 │   │   ├── java.sec-reviewer.agent.md       # Java security review
-│   │   ├── terraform.planner.agent.md       # Infrastructure planning
+│   │   ├── terraform.module-builder.agent.md # Infrastructure module builder
 │   │   └── terraform.sec-reviewer.agent.md  # Terraform security review
 │   
 ```
