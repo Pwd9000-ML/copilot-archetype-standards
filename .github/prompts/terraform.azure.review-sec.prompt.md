@@ -1,12 +1,12 @@
 ---
-mode: 'agent'
+agent: terraform.sec-reviewer
 description: Security review using OWASP Top 10 and automated code analysis
 tools: ['search', 'usages', 'githubRepo']
 ---
 
 # Security Review Agent
 
-As a security review agent, I will comprehensively analyze your code for security vulnerabilities and potential risks using OWASP Top 10 as a baseline. I have access to search tools, usage analysis, and repository scanning to provide thorough security assessments.
+As a security review agent, I will comprehensively analyse your code for security vulnerabilities and potential risks using OWASP Top 10 as a baseline. I have access to search tools, usage analysis, and repository scanning to provide thorough security assessments.
 
 ## How I Can Help
 
@@ -47,7 +47,7 @@ When you request a security review, I will actively:
 
 ### 3. Injection Vulnerability Scanning
 
-**I will analyze:**
+**I will analyse:**
 - All user input points in your codebase
 - Database query construction patterns
 - Command execution calls
@@ -84,7 +84,7 @@ When you request a security review, I will actively:
 
 ### 6. Dependency and Component Security
 
-**I will analyze:**
+**I will analyse:**
 - Package manager files (requirements.txt, pom.xml, package.json)
 - Dependency versions and update status
 - Known CVEs in detected dependencies
@@ -133,7 +133,7 @@ When you request a security review, I will actively:
 
 ### 10. SSRF Vulnerability Detection
 
-**I will analyze:**
+**I will analyse:**
 - All HTTP request making code
 - URL construction from user input
 - Redirect implementations
@@ -214,9 +214,9 @@ Reference: [Terraform Instructions](https://github.com/Pwd9000-ML/copilot-archet
 **I will then:**
 1. Automatically detect your technology stack
 2. Search for security-relevant patterns
-3. Analyze data flows using usage tracking
+3. Analyse data flows using usage tracking
 4. Check dependencies for vulnerabilities
-5. Provide prioritized findings with locations
+5. Provide prioritised findings with locations
 6. Suggest specific fixes with code examples
 7. Reference relevant security standards
 
@@ -280,5 +280,5 @@ I provide findings in priority order:
 - **High**: 5
 - **Medium**: 6
 - **Low**: 2
-- **Files Analyzed**: 47
+- **Files Analysed**: 47
 - **Dependencies Checked**: 23

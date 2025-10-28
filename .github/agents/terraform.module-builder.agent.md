@@ -1,6 +1,6 @@
 ---
 description: Module Builder (Terraform) — strategic infrastructure module creator agent
-tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'Azure MCP/search', 'runSubagent', 'usages', 'changes', 'openSimpleBrowser', 'githubRepo', 'extensions']
+tools: ['edit', 'search', 'new', 'runCommands', 'runTasks', 'runSubagent', 'usages', 'changes', 'openSimpleBrowser', 'githubRepo', 'extensions']
 model: GPT-5
 ---
 

@@ -6,9 +6,8 @@ description: Terraform 1.13 with Azure-focused infrastructure as code standards
 # Terraform 1.13 Development Standards with Azure Focus
 
 ## Version Requirements
-- **Required**: Terraform >= 1.13
-- **Azure Providers**: AzureRM >= 4.0, AzAPI >= 2.0
-- Pin minor versions using `~>` for stability
+- **Required** always use: Terraform ">= 1.13"
+- **Azure Providers** always use:  AzureRM "~> 4.0", AzAPI "~> 2.0"
 
 ```hcl
 terraform {
@@ -671,7 +670,7 @@ module "regional_deployment" {
 - [Terraform Azure Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 - [Azure Terraform Modules](https://github.com/Azure/terraform-azurerm-modules)
 - [Microsoft Cloud Adoption Framework - Terraform](https://docs.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/terraform-landing-zone)
-- [Organization Global Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/global.instructions.md)
+- [Organisation Global Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/global.instructions.md)
 
 ---
 
