@@ -670,7 +670,7 @@ module "regional_deployment" {
 - [Terraform Azure Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 - [Azure Terraform Modules](https://github.com/Azure/terraform-azurerm-modules)
 - [Microsoft Cloud Adoption Framework - Terraform](https://docs.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/terraform-landing-zone)
-- [Organisation Global Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/global.instructions.md)
+- [Organisation Global Standards](https://github.com/Pwd9000-ML/copilot-archetype-standards-demo/tree/master/.github/instructions/global.instructions.md)
 
 ---
 

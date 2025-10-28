@@ -20,26 +20,26 @@ ModuleName/
 ├── tfvars.example         # Example variable values
 ```
 
-- All files must be present even if empty (e.g., locals.tf)
-- Use consistent formatting and comments for clarity
+- All files must be present even if empty.
+- Use consistent formatting and comments for clarity.
 
 ## Deliverables:
-- Commented terraform code in all files
-- Complete terraform module code with all necessary files
-- Documentation in README.md with usage instructions and examples
-- Example variable values in tfvars.example
+- Commented terraform code in all files.
+- Complete terraform module code with all necessary files.
+- Documentation in README.md with usage instructions and examples.
+- Example variable values in tfvars.example.
 
 ## Operating constraints:
-- Focus on Terraform best practices and patterns
-- Avoid unnecessary complexity; prefer simplicity and maintainability
-- Always use For-Each for resource collections
-- Don't use count unless absolutely necessary
+- Focus on Terraform best practices and patterns.
+- Avoid unnecessary complexity; prefer simplicity and maintainability.
+- Always use For-Each for resource collections.
+- Don't use count unless absolutely necessary.
 
 ## Terraform considerations:
-- Module structure and reusability
-- State management strategy (remote backend using Azure Storage, locking, encryption)
-- For provider versions and pinning use "~>"
-- Validation: terraform fmt, validate, tflint, trivy
-- Never allow public access to storage accounts or databases
-- Beware of security implications (secrets in state, public IPs, network access)
-- Cost optimization and resource sizing
+- Module structure and reusability.
+- State management strategy (remote backend using Azure Storage, locking, encryption).
+- For provider versions and pinning use "~>".
+- Validation: terraform fmt, validate, tflint, trivy.
+- Never allow public access to storage accounts or databases.
+- Beware of security implications (secrets in state, public IPs, network access).
+- Cost optimization and resource sizing.
