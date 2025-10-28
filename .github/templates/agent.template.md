@@ -1,7 +1,7 @@
 ---
 description: Brief description of the chat mode's purpose and approach
 tools: ['search', 'usages', 'githubRepo']
-model: Claude Sonnet 4.5 or GPT-5
+model: Claude Sonnet 4.5
 ---
 
 # {Mode} ({Language/Scope})
