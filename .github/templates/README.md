@@ -1,6 +1,6 @@
 # GitHub Copilot File Templates
 
-This directory contains templates for creating new GitHub Copilot customization files. Use these templates to ensure consistency and completeness when contributing new content.
+This directory contains templates for creating new GitHub Copilot customisation files. Use these templates to ensure consistency and completeness when contributing new content.
 
 ## Available Templates
 

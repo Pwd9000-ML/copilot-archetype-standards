@@ -1,6 +1,6 @@
 # GitHub Copilot Archetype Standards
 
-A centralized repository containing development standards, coding guidelines, and GitHub Copilot configuration files for Python, Java, and Terraform projects.
+A centralised repository containing development standards, coding guidelines, and GitHub Copilot configuration files for Python, Java, and Terraform projects.
 
 ## 📋 Table of Contents
 
@@ -16,13 +16,13 @@ A centralized repository containing development standards, coding guidelines, an
 
 This repository serves as a central source of truth for:
 
-- **Organization-wide coding standards** across multiple languages
+- **Organisation-wide coding standards** across multiple languages
 - **GitHub Copilot instruction files** that guide AI-assisted development
 - **Reusable prompt templates** for common development tasks
 - **Custom agents** for specialized development workflows
 - **Language-specific style guides** for Python, Java, and Terraform
 
-Also see [VS Code Customization](https://code.visualstudio.com/docs/copilot/customization/overview) for more about GitHub Copilot customization.
+Also see [VS Code Customisation](https://code.visualstudio.com/docs/copilot/customization/overview) for more about GitHub Copilot customisation.
 
 ### Why This Repository?
 
@@ -84,9 +84,9 @@ GitHub Copilot custom instruction files, prompt files, and agents cannot be cent
 - **Support**: GitHub Copilot Chat
 - **Format**: Front matter with `mode: 'agent'`, `description`, and `tools` fields
 - **Tools**: Uses `search`, `usages`, and `githubRepo` for active code analysis
-- **Usage**: Can actively search codebase, trace dependencies, and analyze repository context
+- **Usage**: Can actively search codebase, trace dependencies, and analyse repository context
 - **Features**: 
-  - **Migration Planning**: Analyzes codebase structure, identifies dependencies, and generates phased migration plans
+   - **Migration Planning**: Analyses codebase structure, identifies dependencies, and generates phased migration plans
   - **Security Review**: Scans for OWASP Top 10 vulnerabilities with language-specific checks
   - **Test Generation (Python)**: Creates comprehensive pytest test suites with fixtures and mocks
   - **Test Generation (Java)**: Creates JUnit 5 test suites with Mockito and AssertJ
@@ -123,9 +123,9 @@ Create lightweight instruction files in your project that reference this central
 ```markdown
 # Project Copilot Instructions
 
-This project follows the organization-wide standards defined in the central repository:
+This project follows the organisation-wide standards defined in the central repository:
 
-- [Organization Copilot Guidelines](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/copilot-instructions.md)
+- [Organisation Copilot Guidelines](https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/copilot-instructions.md)
 
 ## Language-Specific Instructions
 
@@ -282,7 +282,7 @@ Our prompt files use **agent mode** with active tool capabilities for enhanced c
    - Java: `/prompt generate-tests-java`
    - Terraform: `/prompt generate-tests-terraform`
 4. Agent actively:
-   - Analyzes code structure and all code paths
+   - Analyses code structure and all code paths
    - Finds existing test patterns in your repository
    - Identifies dependencies to mock
    - Generates tests matching your project style
@@ -303,10 +303,10 @@ Our prompt files use **agent mode** with active tool capabilities for enhanced c
 5. Example: `"Review the OrderService class for code quality, performance, and maintainability"`
 
 **Benefits of Agent Mode:**
-- **Active Analysis**: Prompts don't just provide templates - they actively analyze your code
+- **Active Analysis**: Prompts don't just provide templates - they actively analyse your code
 - **Context-Aware**: Uses repository structure and existing patterns
 - **Data-Driven**: Provides specific file locations, usage counts, and metrics
-- **Customized Output**: Generates plans specific to your codebase, not generic advice
+- **Customised Output**: Generates plans specific to your codebase, not generic advice
 
 ### Understanding Development Tools
 
@@ -337,7 +337,7 @@ To verify whether GitHub Copilot follows instructions from external repositories
 
 2. **Add minimal instruction files** that reference this central repository
 
-3. **Test Copilot behavior** in each repository
+3. **Test Copilot behaviour** in each repository
 
 #### Test Cases
 
@@ -372,7 +372,7 @@ mkdir -p .github
 cat > .github/copilot-instructions.md << 'EOF'
 # Python Project Standards
 
-Follow organization standards: 
+Follow organisation standards: 
 https://github.com/Pwd9000-ML/copilot-archetype-standards/tree/master/.github/instructions/python.instructions.md
 
 
@@ -389,7 +389,7 @@ code .
 
 ### Expected Results
 
-| Test | Expected Behavior | Pass/Fail |
+| Test | Expected Behaviour | Pass/Fail |
 |------|------------------|-----------|
 | Type hints usage | Copilot suggests type hints | ✅ / ❌ |
 | Code formatting | 120 char line length | ✅ / ❌ |
@@ -398,7 +398,7 @@ code .
 
 ### Testing in Your Environment
 
-1. **Clone this repository** to your organization
+1. **Clone this repository** to your organisation
 2. **Create test repositories** for each archetype
 3. **Follow the testing procedure** above
 4. **Document results** in your environment
