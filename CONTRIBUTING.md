@@ -1,6 +1,6 @@
 # Contributing to GitHub Copilot Archetype Standards
 
-Thank you for your interest in contributing to this repository! This guide will help you add new standards, prompts, chat modes, and improvements.
+Thank you for your interest in contributing to this repository! This guide will help you add new standards, prompts, agents, and improvements.
 
 ## Table of Contents
 
@@ -152,18 +152,18 @@ Provide concrete code examples showing:
 - See `.github/prompts/python.generate-tests.prompt.md`
 - See `.github/prompts/global.code-review.prompt.md`
 
-### Adding a New Chat Mode
+### Adding a New Agent
 
-Chat modes define specialized workflows for development tasks.
+Agents define specialized workflows for development tasks.
 
-**Location**: `.github/chatmodes/`
+**Location**: `.github/agents/`
 
-**Naming**: `{language}.{mode}.chatmode.md`
+**Naming**: `{language}.{mode}.agent.md`
 
 **Template**:
 ```markdown
 ---
-description: Brief description of the chat mode's purpose and approach
+description: Brief description of the agent's purpose and approach
 tools: ['search', 'usages', 'githubRepo']
 model: Claude Sonnet 4.5 or GPT-5
 ---
@@ -187,8 +187,8 @@ Operating constraints:
 ```
 
 **Examples**:
-- See `.github/chatmodes/python.planner.chatmode.md`
-- See `.github/chatmodes/java.sec-reviewer.chatmode.md`
+- See `.github/agents/python.planner.agent.md`
+- See `.github/agents/java.sec-reviewer.agent.md`
 
  
 
@@ -205,11 +205,11 @@ Operating constraints:
 - Examples: `python.generate-tests.prompt.md`, `global.code-review.prompt.md`
 - Location: `.github/prompts/`
 
-### Chat Mode Files
-- Format: `{language}.{mode}.chatmode.md`
+### Agent Files
+- Format: `{language}.{mode}.agent.md`
 - Mode: `planner`, `sec-reviewer`, `refactorer`
-- Examples: `python.planner.chatmode.md`, `java.sec-reviewer.chatmode.md`
-- Location: `.github/chatmodes/`
+- Examples: `python.planner.agent.md`, `java.sec-reviewer.agent.md`
+- Location: `.github/agents/`
 
  
 
@@ -246,18 +246,18 @@ tools: ['search', 'usages', 'githubRepo']
 - `description` (required): Clear, concise purpose statement
 - `tools` (required): Array of tools the prompt uses
 
-### Chat Mode Files
+### Agent Files
 ```yaml
 ---
-description: One-line description of the chat mode
+description: One-line description of the agent
 tools: ['search', 'usages', 'githubRepo']
 model: Claude Sonnet 4.5
 ---
 ```
 
 **Fields:**
-- `description` (required): Purpose and approach of the chat mode
-- `tools` (required): Array of tools the mode uses
+- `description` (required): Purpose and approach of the agent
+- `tools` (required): Array of tools the agent uses
 - `model` (optional): Recommended AI model (e.g., "Claude Sonnet 4.5", "GPT-5")
 
 ### Toolset Files
@@ -320,7 +320,7 @@ Ensure all internal links use full GitHub URLs:
 3. Verify that:
    - Instruction files are applied correctly
    - Prompt files appear in Copilot Chat
-   - Chat modes are accessible
+   - Agents are accessible
    - Tools work as expected
 
 ### 5. Check Consistency
@@ -372,7 +372,7 @@ Brief description of what this PR adds or changes.
 ## Type of Change
 - [ ] New instruction file
 - [ ] New prompt file
-- [ ] New chat mode
+- [ ] New agent
 - [ ] Style guide update
 - [ ] Documentation improvement
 - [ ] Bug fix

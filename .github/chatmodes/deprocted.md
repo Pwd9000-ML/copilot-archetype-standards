@@ -1,1 +1,1 @@
-Chatmodes are now called agents and have been moved to the .github/agents directory. Please refer to the new agent files for the updated configurations and descriptions.
+Chat modes are now called agents and have been moved to the .github/agents directory. Please refer to the new agent files for the updated configurations and descriptions.

@@ -1,5 +1,4 @@
----
-description: Brief description of the chat mode's purpose and approach
+description: Brief description of the agent's purpose and approach
 tools: ['search', 'usages', 'githubRepo']
 model: Claude Sonnet 4.5
 ---
@@ -38,7 +37,7 @@ When providing {output type}, structure as:
 
 ## Tool Usage
 
-How this chat mode uses the available tools:
+How this agent uses the available tools:
 
 **`search` for:**
 - Purpose 1
@@ -63,7 +62,7 @@ How this chat mode uses the available tools:
 
 ## Best Practices
 
-This chat mode follows:
+This agent follows:
 - ✅ Practice 1
 - ✅ Practice 2
 - ✅ Practice 3

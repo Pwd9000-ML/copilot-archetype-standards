@@ -100,10 +100,10 @@ These resources provide additional, technology-specific guidance. Always use the
 
 
 
-## Working with GitHub Copilot and Chat Modes
+## Working with GitHub Copilot and Agents
 
-- Leverage repository prompts and chat modes when available for planning, security review, and test generation
-- Reference prompt and chatmode files using the full URLs above when embedding links in Markdown
+- Leverage repository prompts and agents when available for planning, security review, and test generation
+- Reference prompt and agent files using the full URLs above when embedding links in Markdown
 - Prefer minimal, targeted suggestions; validate generated code with tests and linters
 
 ---

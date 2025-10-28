@@ -19,12 +19,12 @@ This repository serves as a central source of truth for:
 - **Organization-wide coding standards** across multiple languages
 - **GitHub Copilot instruction files** that guide AI-assisted development
 - **Reusable prompt templates** for common development tasks
-- **Custom chat modes** for specialized development workflows
+- **Custom agents** for specialized development workflows
 - **Language-specific style guides** for Python, Java, and Terraform
 
 ### Why This Repository?
 
-GitHub Copilot custom instruction files, prompt files, and chat modes cannot be centrally managed, even in GitHub Enterprise Cloud (GHEC). This repository provides a workaround by:
+GitHub Copilot custom instruction files, prompt files, and agents cannot be centrally managed, even in GitHub Enterprise Cloud (GHEC). This repository provides a workaround by:
 
 1. Storing all standards and instructions in a central location
 2. Allowing other repositories to reference these standards via Markdown links
@@ -53,13 +53,13 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
 │   │   ├── java.review-security.prompt.md   # Java OWASP security review
 │   │   ├── terraform.generate-tests.prompt.md      # Terratest generation
 │   │   └── terraform.azure.review-security.prompt.md  # Azure security review
-│   ├── chatmodes/                           # Custom chat modes
-│   │   ├── python.planner.chatmode.md       # Python strategic planning
-│   │   ├── python.sec-reviewer.chatmode.md  # Python security review
-│   │   ├── java.planner.chatmode.md         # Java strategic planning
-│   │   ├── java.sec-reviewer.chatmode.md    # Java security review
-│   │   ├── terraform.planner.chatmode.md    # Infrastructure planning
-│   │   └── terraform.sec-reviewer.chatmode.md  # Terraform security review
+│   ├── agents/                              # Custom agents
+│   │   ├── python.planner.agent.md          # Python strategic planning
+│   │   ├── python.sec-reviewer.agent.md     # Python security review
+│   │   ├── java.planner.agent.md            # Java strategic planning
+│   │   ├── java.sec-reviewer.agent.md       # Java security review
+│   │   ├── terraform.planner.agent.md       # Infrastructure planning
+│   │   └── terraform.sec-reviewer.agent.md  # Terraform security review
 │   
 ```
 
@@ -90,8 +90,8 @@ GitHub Copilot custom instruction files, prompt files, and chat modes cannot be 
   - **Test Generation (Java)**: Creates JUnit 5 test suites with Mockito and AssertJ
   - **Test Generation (Terraform)**: Creates validation scripts and Terratest integration tests
 
-#### `.github/chatmodes/*.chatmode.md`
-- **Purpose**: Custom chat modes for specialized workflows
+#### `.github/agents/*.agent.md`
+- **Purpose**: Custom agents for specialized workflows
 - **Scope**: Workspace-scoped
 - **Support**: GitHub Copilot Chat
 - **Format**: Front matter with `description` and `tools` fields
@@ -242,14 +242,14 @@ terraform-project/
 
 3. **Prompt Files**: Save prompt files in `.github/prompts/` and access via Copilot Chat
 
-4. **Chat Modes**: Define custom chat modes in `.github/chatmodes/` for specialized workflows
+4. **Agents**: Define custom agents in `.github/agents/` for specialized workflows
 
 ### How Copilot Uses These Files
 
 - **copilot-instructions.md**: Automatically loaded for all Copilot interactions in the repository
 - **instructions/*.instructions.md**: Applied to files matching the `applyTo` glob pattern
 - **prompts/*.prompt.md**: Available as reusable prompts in Copilot Chat
-- **chatmodes/*.chatmode.md**: Activate specialized modes for focused development tasks
+- **agents/*.agent.md**: Activate specialized agents for focused development tasks
 
 ### Example Copilot Workflows with Agent Mode
 
@@ -308,7 +308,7 @@ Our prompt files use **agent mode** with active tool capabilities for enhanced c
 
 ### Understanding Development Tools
 
-All agent-mode prompts and chat modes use three powerful tools for code analysis:
+All agent-mode prompts and agents use three powerful tools for code analysis:
 
 - **`search`**: Find files, symbols, patterns, and code throughout your codebase
 - **`usages`**: Trace how functions, classes, and symbols are used
@@ -419,15 +419,14 @@ We welcome contributions! This repository provides standardized templates and gu
 
 - **Instruction Files**: Language or framework-specific standards (`.github/instructions/`)
 - **Prompt Files**: Reusable templates for common tasks (`.github/prompts/`)
-- **Chat Modes**: Specialized development workflows (`.github/chatmodes/`)
-0
+- **Agents**: Specialized development workflows (`.github/agents/`)
 ### File Naming Conventions
 
 | Type | Format | Example |
 |------|--------|---------|
 | Instruction | `{language}.instructions.md` | `python.instructions.md` |
 | Prompt | `{scope}.{purpose}.prompt.md` | `python.generate-tests.prompt.md` |
-| Chat Mode | `{language}.{mode}.chatmode.md` | `java.planner.chatmode.md` |
+| Agent | `{language}.{mode}.agent.md` | `java.planner.agent.md` |
 
 ### Front Matter Standards
 
@@ -448,7 +447,7 @@ To add a new language archetype:
 
 1. Create instruction file: `.github/instructions/{language}.instructions.md`
 2. Create prompt files: `.github/prompts/{language}.*.prompt.md`
-3. Create chat modes: `.github/chatmodes/{language}.*.chatmode.md`
+3. Create agents: `.github/agents/{language}.*.agent.md`
 4. Update this README with archetype information
 5. Add examples and usage documentation
 

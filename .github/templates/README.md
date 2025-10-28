@@ -34,12 +34,12 @@ Template for creating new prompt files with agent capabilities.
 5. Document expected inputs and outputs
 6. Include usage examples
 
-### `chatmode.template.md`
-Template for creating new custom chat modes.
+### `agent.template.md`
+Template for creating new custom agents.
 
 **Use when:** Adding a specialized development workflow
 
-**Output location:** `.github/chatmodes/{language}.{mode}.chatmode.md`
+**Output location:** `.github/agents/{language}.{mode}.agent.md`
 
 **Steps:**
 1. Copy the template
@@ -85,21 +85,21 @@ git add .github/prompts/python.refactor.prompt.md
 git commit -m "feat: add Python refactoring prompt"
 ```
 
-### Creating a New Chat Mode
+### Creating a New Agent
 
 ```bash
 # 1. Copy template
-cp .github/templates/chatmode.template.md .github/chatmodes/python.refactorer.chatmode.md
+cp .github/templates/agent.template.md .github/agents/python.refactorer.agent.md
 
 # 2. Edit the file
-# - Define mode purpose and approach
+# - Define agent purpose and approach
 # - List deliverables
 # - Add Python-specific refactoring considerations
 # - Keep concise and actionable
 
 # 3. Add to version control
-git add .github/chatmodes/python.refactorer.chatmode.md
-git commit -m "feat: add Python refactorer chat mode"
+git add .github/agents/python.refactorer.agent.md
+git commit -m "feat: add Python refactorer agent"
 ```
 
 ## Template Sections Explained
