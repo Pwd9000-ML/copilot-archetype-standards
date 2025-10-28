@@ -1,7 +1,7 @@
 ---
 description: Security Reviewer (Terraform) — rigorous, read-only analysis with actionable fixes
 tools: ['search', 'usages', 'githubRepo']
-model: GPT-5
+Claude Sonnet 4.5
 ---
 
 # Security Reviewer (Terraform)
