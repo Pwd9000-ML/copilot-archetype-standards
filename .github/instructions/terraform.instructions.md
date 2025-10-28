@@ -23,6 +23,10 @@ terraform {
       source  = "azure/azapi"
       version = "~> 2.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.6"
+    }
   }
 }
 
@@ -76,27 +80,98 @@ locals {
 
 ## Azure Best Practices
 
-### Resource Naming
+### Naming Conventions and Locals File
+
+**ALWAYS create a dedicated `locals.tf` file** for naming conventions and common values. This ensures consistency across all resources and makes updates easier.
+
+#### Random String Suffix for Uniqueness
+For globally unique resources (Storage Accounts, Key Vaults, Container Registries, etc.), **always append a random string suffix** to ensure uniqueness:
+
 ```hcl
+# locals.tf - ALWAYS create this file for naming conventions
+resource "random_string" "suffix" {
+  length  = 4
+  special = false
+  upper   = false
+}
+
 locals {
+  # Common variables
+  resource_suffix = random_string.suffix.result
+  
+  # Naming conventions with random suffix where needed
   naming_convention = {
-    resource_group  = "rg-${var.workload}-${var.environment}-${var.location_short}"
-    storage_account = lower(replace("st${var.workload}${var.environment}", "-", ""))
-    key_vault       = "kv-${var.workload}-${var.environment}"
-    vnet            = "vnet-${var.workload}-${var.environment}"
+    # Resource group 
+    resource_group = "rg-${var.workload}-${var.environment}-${var.location_short}-${local.resource_suffix}"
+    
+    # Globally unique resources - ALWAYS use random suffix
+    storage_account = lower(replace("st${var.workload}${var.environment}${local.resource_suffix}", "-", ""))
+    key_vault       = "kv-${var.workload}-${var.environment}-${local.resource_suffix}"
+    container_registry = lower(replace("cr${var.workload}${var.environment}${local.resource_suffix}", "-", ""))
+    cosmos_db       = "cosmos-${var.workload}-${var.environment}-${local.resource_suffix}"
+    
+    # Regional resources - suffix optional but recommended
+    vnet            = "vnet-${var.workload}-${var.environment}-${var.location_short}"
+    subnet          = "snet-${var.workload}-${var.environment}"
+    nsg             = "nsg-${var.workload}-${var.environment}"
+    app_service     = "app-${var.workload}-${var.environment}-${local.resource_suffix}"
+    function_app    = "func-${var.workload}-${var.environment}-${local.resource_suffix}"
   }
   
+  # Common tags - centralize all tagging
   common_tags = {
     Environment = var.environment
     Workload    = var.workload
     ManagedBy   = "Terraform"
+    CostCenter  = var.cost_center
+    CreatedDate = formatdate("YYYY-MM-DD", timestamp())
   }
 }
+```
 
+#### When to Use Random Suffix
+- **REQUIRED** for globally unique Azure resources:
+  - Storage Accounts (`st*`)
+  - Key Vaults (`kv-*`)
+  - Container Registries (`cr*`)
+  - Cosmos DB (`cosmos-*`)
+  - App Configuration (`appconfig-*`)
+  
+- **RECOMMENDED** for resources that may need uniqueness:
+  - App Services / Function Apps
+  - Container Apps
+  - API Management instances
+  
+- **OPTIONAL** for regional/scoped resources:
+  - Resource Groups
+  - Virtual Networks
+  - Network Security Groups
+
+#### Using Naming Conventions in Resources
+```hcl
+# main.tf - Reference naming from locals
 resource "azurerm_resource_group" "main" {
   name     = local.naming_convention.resource_group
   location = var.location
   tags     = local.common_tags
+}
+
+resource "azurerm_storage_account" "main" {
+  name                     = local.naming_convention.storage_account
+  resource_group_name      = azurerm_resource_group.main.name
+  location                 = azurerm_resource_group.main.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  tags                     = local.common_tags
+}
+
+resource "azurerm_key_vault" "main" {
+  name                = local.naming_convention.key_vault
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  sku_name            = "standard"
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  tags                = local.common_tags
 }
 ```
 
@@ -308,16 +383,52 @@ variable "location" {
 
 ## Best Practices
 
+### File Organization
+- **ALWAYS create `locals.tf`** for naming conventions, random suffixes, and common tags
+- Keep `variables.tf` for input variables
+- Keep `outputs.tf` for output values
+- Use `main.tf` for primary resources
+- Separate complex modules into their own directories
+
+### Naming and Tagging
+```hcl
+# locals.tf - Central location for ALL naming and tagging
+resource "random_string" "suffix" {
+  length  = 4
+  special = false
+  upper   = false
+}
+
+locals {
+  resource_suffix = random_string.suffix.result
+  
+  naming_convention = {
+    # Use suffix for globally unique resources
+    storage_account = "st${var.workload}${var.environment}${local.resource_suffix}"
+    key_vault       = "kv-${var.workload}-${var.environment}-${local.resource_suffix}"
+  }
+  
+  common_tags = merge(var.additional_tags, {
+    Environment = var.environment
+    Workload    = var.workload
+    ManagedBy   = "Terraform"
+  })
+}
+```
+
+### Resource Creation
 ```hcl
 # Use variables and locals
 resource "azurerm_resource_group" "main" {
   name = local.naming_convention.resource_group
+  tags = local.common_tags
 }
 
 # for_each for multiple resources
 resource "azurerm_storage_account" "main" {
   for_each = var.accounts
-  name     = "st${each.key}"
+  name     = "st${each.key}${local.resource_suffix}"
+  tags     = local.common_tags
 }
 
 # Dynamic blocks for repetition
