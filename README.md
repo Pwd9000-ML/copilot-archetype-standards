@@ -57,7 +57,7 @@ GitHub Copilot custom instruction files, prompt files, and agents cannot be cent
 │   │   ├── java.review-security.prompt.md   # Java OWASP security review
 │   │   ├── terraform.generate-module.prompt.md     # Terraform module generation
 │   │   ├── terraform.generate-tests.prompt.md      # Terratest generation
-│   │   └── terraform.azure.review-security.prompt.md  # Azure security review
+│   │   └── terraform.azure.review-sec.prompt.md  # Azure security review
 │   ├── agents/                              # Custom agents
 │   │   ├── python.planner.agent.md          # Python module builder
 │   │   ├── python.sec-reviewer.agent.md     # Python security review

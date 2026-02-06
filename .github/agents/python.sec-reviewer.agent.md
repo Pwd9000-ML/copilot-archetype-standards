@@ -1,7 +1,7 @@
 ---
 description: Security Reviewer (Python) — rigorous, read-only analysis with actionable fixes
 tools: ['search', 'usages', 'githubRepo', 'runCommands', 'fetch', 'todos']
-model: GPT-5
+model: Claude Sonnet 4.5
 ---
 
 # Security Review Agent for Python
